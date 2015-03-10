@@ -1,0 +1,470 @@
+\documentclass[a4paper,11pt,openright,oneside]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[portuguese]{babel}
+\usepackage{graphicx}
+\usepackage[backend=biber, style=ieee]{biblatex}
+\usepackage{csquotes}
+\usepackage{blindtext}
+\usepackage[printonlyused]{acronym}
+\usepackage{hyperref}
+\usepackage{minted}
+
+
+\newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+
+\bibliography{biblio}
+
+\begin{document}
+
+\begin{titlepage}
+\begin{center}
+
+{\vspace*{50mm}\textsc{\Huge\textbf{Criptografia}\\ \small{Laboratórios de Informática}}}\\[2cm]
+{\textsc{\small\textbf{Universidade de Aveiro}}}\\[0.5cm]
+{\small Nelson Costa 42983\\Ricardo Jesus 76613}\\[0.5cm]
+{\small	15 de Março de 2015}\\
+
+\begin{figure}[b]
+\center
+\graphicspath{}
+\includegraphics[height=2cm, width=2cm]{ua.pdf}
+\end{figure}
+
+\end{center}
+
+\end{titlepage}
+
+\title{\textbf{Criptografia}\\[1cm]\textsc{\small {Departamento de Electrónica, Telecomunicações e Informática} \\ \large {UNIVERSIDADE DE AVEIRO}}}
+\author{Nelson Costa 42983, Ricardo Jesus 76613\\nelson.costa@ua.pt, ricardojesus@ua.pt}
+\date{15 de Março de 2015}
+
+\maketitle
+
+\pagenumbering{roman}
+
+\begin{abstract}
+
+
+
+\end{abstract}
+
+\tableofcontents
+%\listoftables
+\listoffigures
+
+\clearpage
+\pagenumbering{arabic}
+
+\chapter{Introdução}
+\label{chap.introdução}
+
+
+
+\chapter{Criptografia}
+\label{chap.criptografia}
+
+\section{Criptografia Híbrida}
+\label{chap.híbrida}
+
+\chapter{Implementação de Programas}
+\label{chap.programas}
+
+Neste capítulo irá ser abordada a implementação de dois programas, um com o objectivo de cifrar e o outro de decifrar uma certa mensagem. Ambos utilizam um esquema híbrido \ref{chap.híbrida}, portanto fornecendo confidencialidade e autenticidade mas permitindo uma rápida cifragem e decifragem da mensagem a ser enviada. Os pares de chaves assimétricas utilizados nos testes destes programas foram gerados utilizando o programa \href{run:../Python/KeysGenerator/generateKeys.py}{\textbf{generateKeys.py}}. O código de ambos os programas é disponibilizado em apêndixe no final deste relatório para facilitar o confronto do código exposto face à análise levada a cabo sobre ele em cada uma das seções seguintes, secções em que se procura explicar como se procurou resolver o problema inicialmente exposto.\\
+Para facilitar certas explicações abaixo, parte-se do princípio que que o indivíduo A quer enviar em ficheiro cifrado a B, que só este último pode decifrar, e em que é possível verificar a autenticidade do ficheiro.
+
+\section{Cifragem}
+
+O programa responsável pela cifragem da mensagem a transmitir é \href{run:../Python/Sender/encipherPy.py}{\textbf{encipherPy.py}}. O código do programa é incluido neste relatório em \ref{App:encipher.py}.
+Este programa depende de várias funções para sua execução, destancando-se as funções \verb|sigGenerator|, \verb|keyGenerator| e \verb|encipher|. Outras funções nele presentes estão relacionadas com a robustês deste e não com a cifragem da mensagem em si, e portanto não irão ser abordadas.\\
+O objectivo deste programa é tirar partido da velocidade de cifram com chaves simétricas, mas manter as funcionalidades e segurança extra que chaves assimétricas permitem. Com isso em mente, em gerada uma chave simétrica pelo programa, que é cifrada com a chave pública de B (para que apenas este a possa decifrar), a assinatura do ficheiro é cifrada com a chave privada de A (para que B possa ter certezas sobre a origem do ficheiro), e o ficheiro em si é cifrado com uma chave simétrica, sendo portanto muito mais rápida a sua cifragem e decifragem.\\
+Apesar de nas funções a seguir expostas se falar na criação de ficheiros auziliares (\verb|*.sig| e \verb|*.key|) e dum ficheiro principal \verb|*.bin|, estes não estão presentes no final da execução do programa já que se optou por juntar todos estes ficheiros num único \verb|*.all|, facilitando assim o envio do ficheiro cifrado. Este processo é um dos implementados pelas funções auxiliares referidas acima, não estando relacionado com a cifragem em si.
+
+\subsection{sigGenerator}
+
+Esta função é responsável pela criação de uma assinatura do ficheiro, de forma a garantir ao recetor da mensagem que o que ele está a receber (e decifrar) é de facto a mensagem enviada (ou, no caso de não ser, pelo menos isso será facilmente verificado), e que esta foi enviada pelo indivíduo A.\\
+Para isto recorre-se a uma função de síntese, \verb|SHA-256|\footnote{\url{http://en.wikipedia.org/wiki/SHA-2}}, para calcular o \verb|hash| do ficheiro a cifrar. De seguida recorre-se ao módulo \verb|PKCS1_v1_5|\footnote{\url{https://www.dlitz.net/software/pycrypto/api/current/toc-Crypto.Signature.PKCS1_v1_5-module.html}} para gerar uma assinatura com a chave privada de A, sendo esta gravada num ficheiro \verb|*.sig|, onde \verb|*| simboliza o nome do ficheiro original sem extensão.
+
+\subsection{keyGenerator}
+
+Esta função tem como objectivo gerar e guardar a chave simétrica usada pelo programa, cifrando-a com a chave pública de B (de forma a que apenas este a possa decifrar). Para isso, inicialmente gera-se uma sequência aleatória de 1024 bits. Visto que o método de encriptação AES necessita de chaves com 16, 24 ou 32 bytes, é calculada a síntese (SHA-256) do código aleatório gerado de forma a garantir que a chave final é de 256 bits (ou seja, 32 bytes). De seguida esta chave é cifrada com a chave pública de B recorrendo-se ao módulo \verb|PKCS1_OAEP|\footnote{\url{https://www.dlitz.net/software/pycrypto/api/current/toc-Crypto.Cipher.PKCS1_OAEP-module.html}}, garantindo-se assim que apenas B pode decifrar esta chave (com a sua chave privada), obtendo a chave necessária à decifragem da mensagem enviada. O resultado é depois guardado num ficheiro \verb|*.key|, onde mais uma vez \verb|*| simboliza o nome do ficheiro a cifrar sem extensão.\\
+Para além da chave cifrada, é também guardado um código IV (Initialization Vector) necessário à correcta descodificação da mensagem. Este código é gerado na função \verb|encipher|, sendo que a função \verb|keyGenerator| apenas o guarda no mesmo ficheiro onde a chave é guardada. Este código é necessário em resultado da utilização do mode de encpritção de AES CFB\footnote{\url{http://goo.gl/RxmaQC}}.
+
+\subsection{encipher}
+
+Por último, processa-se de facto a cifragem do ficheiro recorrendo-se para isso à função \verb|encipher|. Esta implementa as duas funções anteriormente expostas, de forma o obter os resultados nelas exposto. Para além disso, gera também um código de 16 bytes chamado de \verb|iv|\footnote{\url{http://en.wikipedia.org/wiki/Initialization_vector}}, necessário pelo modo de cifragem em uso. Finalmente o ficheiro é cifrado recorrendo-se ao módulo de cifragem AES\footnote{\url{https://www.dlitz.net/software/pycrypto/api/current/toc-Crypto.Cipher.AES-module.html}}, modo CFB, e o resultado é guardado num ficheiro \verb|*.bin|.\\
+O recetor da mensagem, indivíduo B, poderá utilizar a sua chave privada para obter a chave simétrica gerada para cifrar este ficheiro. Desta forma tira-se partido da velocidade de cifragem com chaves simétricas, mas mantém-se a segurança extra (e autenticação) que chaves assimétricas permitem.
+
+\section{Decifragem}
+
+A decifragem da mensagem cifrada enviada é feita pelo programa \href{../Python/Receiver/decipherPy.py}{\textbf{decipherPy.py}}\ref{App:decipher.py}. Também este programa recorre essencialmente a três funções para decifrar o ficheiro pedido, possuindo no entanto mais código, responsável por aumentar a sua robustez e utilidade. O seu ojectivo é ser capaz de decifrar a chave simétrica utilizada para cifrar a mensagem (com a chave privada do utilizador do programa decifrador, ou seja, com a chave privada do indivíduo B), e com ela decifrar a mensagem inicial. Posto isto, é corrida uma função de verificação que visa garantir não só a integridade do ficheiro como também a sua autenticidade. Para isto, o ficheiro que onde foi guardada a assinatura do ficheiro original é decifrado com a chave pública de A (quem envia a mensagem), sendo depois analizada a integridade do ficheiro comparando a sua síntese SHA-256 com a originalmente guardada. De seguida irão ser analizadas com maior detalhe cada uma das funções mais relacionadas com a decifragem do ficheiro.
+
+
+\chapter{Conclusões}
+\label{chap.conclusões}
+
+\appendix
+\newpage
+\section{encipherPy.py} \label{App:encipher.py}
+
+\begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{python}
+import os, sys, zipfile
+from Crypto import Random
+from Crypto.Cipher import AES, PKCS1_OAEP
+from Crypto.Hash import SHA256
+from Crypto.PublicKey import RSA
+from Crypto.Random import random
+from Crypto.Signature import PKCS1_v1_5
+
+
+# Define Public and Private key names!
+
+# Sender's private key:
+priKey = "A_PrivateKey.pem"
+# Receiver's public key:
+pubKey = "B_PublicKey.pem"
+
+# File name to encrypt
+f_name = ""
+
+def usage():
+    print "python encipherPy.py <File_Name>"
+
+
+def sigGenerator(priKey_fname, f_name):
+    # Opening and reading file to encrypt
+
+    f = open(f_name, "r")
+    buffer = f.read()
+    f.close()
+
+    # Creating Hash of the file. Using SHA-256 (there was a problem using SHA-512)
+
+    h = SHA256.new(buffer)
+
+    # Reading PrivateKey to sign file with
+
+    keyPair = RSA.importKey(open(priKey_fname, "r").read())
+    keySigner = PKCS1_v1_5.new(keyPair)
+
+    # Saving Signature to *.sig File
+
+    f = open(f_name.split('.')[0] + ".sig", "w")
+    f.write(keySigner.sign(h))
+    f.close()
+
+
+def keyGenerator(pubKey_fname, f_name, iv):
+    # Generating 1024 random bits, and creating SHA-256 (for 32 bits compatibility with AES)
+
+    h = SHA256.new(str(random.getrandbits(1024)))
+
+    # Reading PublicKey to encrypt AES key with
+
+    keyPair = RSA.importKey(open(pubKey_fname, "r").read())
+    keyCipher = PKCS1_OAEP.new(keyPair.publickey())
+
+    # Saving encrypted key to *.key File
+
+    f = open(f_name.split('.')[0] + ".key", "w")
+    f.write(iv + keyCipher.encrypt(h.digest()))
+    f.close()
+
+    # Returning generated key to encrypt file with
+
+    return h.digest()
+
+
+def encipher(keyA_fname, keyB_fname, f_name):
+    # Opening file to encrypt in binary mode
+
+    f = open(f_name, "rb")
+    buffer = f.read()
+    f.close()
+
+    # Generating file's Signature (and saving it)
+
+    sigGenerator(keyA_fname, f_name)
+
+    # Generating initializing vector for AES Encryption (there were problems when using different AES modes)
+    # Needs to be saved in, for example, .key File!!!
+
+    iv = Random.new().read(AES.block_size)
+
+    # Generating symmetric key for use (and saving it)
+
+    k = keyGenerator(keyB_fname, f_name, iv)
+
+    # Encrypting and saving result to *.bin File. Using CFB mode
+
+    keyCipher = AES.new(str(k), AES.MODE_CFB, iv)
+    f = open(f_name.split('.')[0] + ".bin", "wb")
+    f.write(keyCipher.encrypt(buffer))
+    f.close()
+
+
+def auxFilesZip(sig, key, bin):
+    # Opening file to contain all bin, sig and key files
+
+    f = zipfile.ZipFile(bin.split('.')[0] + ".all", "w")
+
+    # Writing each of the arguments to the created file
+
+    f.write(sig)
+    f.write(key)
+    f.write(bin)
+
+    # Closing the file
+
+    f.close()
+
+    # Running clean up to the bin, sig and key files
+
+    cleanUp(sig, key, bin)
+
+
+def cleanUp(sig, key, bin):
+    # Deleting each of the files generated during ciphering
+
+    os.remove(sig)
+    os.remove(key)
+    os.remove(bin)
+
+
+def checkFiles(f_name, pubKey, priKey):
+    # Checking for encrypting file's existence and access
+
+    if not os.path.isfile(f_name) or not os.access(f_name, os.R_OK):
+        print "Invalid file to encrypt. Aborting..."
+        sys.exit(1)
+
+    # Checking for each of the files to create existence and, in case they exist, if they are writable
+
+    else:
+        s = f_name.split('.')[0]
+        if os.path.isfile(s + ".sig") and not os.access(s + ".sig", os.W_OK):
+            print "Can't create temporary file: *.bin. Aborting..."
+            sys.exit(2)
+        if os.path.isfile(s + ".key") and not os.access(s + ".key", os.W_OK):
+            print "Can't create temporary file: *.key. Aborting..."
+            sys.exit(3)
+        if os.path.isfile(s + ".bin") and not os.access(s + ".bin", os.W_OK):
+            print "Can't create temporary file: *.bin. Aborting..."
+            sys.exit(4)
+        if os.path.isfile(s + ".all") and not os.access(s + ".all", os.W_OK):
+            print "Can't create output file. Aborting..."
+            sys.exit(5)
+
+    # Checking for public key's existence and access
+
+    if not os.path.isfile(pubKey) or not os.access(pubKey, os.R_OK):
+        print "Invalid public key file. Aborting..."
+        sys.exit(6)
+
+    # Checking for private key's existence and access
+
+    if not os.path.isfile(priKey) or not os.access(priKey, os.R_OK):
+        print "Invalid private key file. Aborting..."
+        sys.exit(7)
+
+
+# Gathering encrypting file name
+
+if len(sys.argv) > 2:
+    usage()
+elif len(sys.argv) == 1:
+    print "File name:"
+    f_name = raw_input(">>> ")
+else:
+    f_name = sys.argv[1]
+
+# Gathering keys names
+
+if priKey == "":
+    print "Sender's private key file name:"
+    priKey = raw_input(">>> ")
+if pubKey == "":
+    print "Receiver's public key file name:"
+    pubKey = raw_input(">>> ")
+
+# Running checks to files
+
+checkFiles(f_name, pubKey, priKey)
+
+# Ciphering file (and generating all auxiliary files)
+
+encipher(priKey, pubKey, f_name)
+
+# Generating output file and clean up
+
+auxFilesZip(f_name.split('.')[0] + ".sig", f_name.split('.')[0] + ".key", f_name.split('.')[0] + ".bin")
+\end{minted}
+
+\newpage
+\section{decipherPy.py} \label{App:decipher.py}
+
+\begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{python}
+import os, sys, zipfile
+from Crypto.Cipher import PKCS1_OAEP, AES
+from Crypto.Hash import SHA256
+from Crypto.PublicKey import RSA
+from Crypto.Signature import PKCS1_v1_5
+
+
+# Define Public and Private key names!
+
+# Sender's public key:
+pubKey = "A_PublicKey.pem"
+# Receiver's private key:
+priKey = "B_PrivateKey.pem"
+
+# File name to decrypt
+f_name = ""
+
+def usage():
+    print "python decipherPy.py <File_Name>"
+
+
+def hashVerification(pubKey_fname, f_name):
+    # Generating decrypted file's SHA-256
+
+    h = SHA256.new()
+    h.update(open(f_name, "r").read())
+
+    # Reading PublicKey to check Signature with
+
+    keyPair = RSA.importKey(open(pubKey_fname, "r").read())
+    keyVerifier = PKCS1_v1_5.new(keyPair.publickey())
+
+    # If Signature is right, prints SHA-256. Otherwise states that the file is not authentic
+
+    if keyVerifier.verify(h, open(f_name.split('.')[0] + ".sig", "r").read()):
+        print "The signature is authentic."
+        print "SHA-256 -> %s" % h.hexdigest()
+    else:
+        print "The signature is not authentic."
+
+
+def keyReader(privKey_fname, f_name):
+    # Reading PrivateKey to decipher Symmetric key used
+
+    keyPair = RSA.importKey(open(privKey_fname, "r").read())
+    keyDecipher = PKCS1_OAEP.new(keyPair)
+
+    # Reading iv (initializing vector) used to encrypt and saving Symmetric key used to 'k'
+
+    f = open(f_name.split('.')[0] + ".key", "r")
+    iv = f.read(16)
+    k = keyDecipher.decrypt(f.read())
+
+    return k, iv
+
+
+def decipher(keyA_fname, keyB_fname, f_name):
+    # Getting Symmetric key used and iv value generated at encryption process
+
+    k, iv = keyReader(keyB_fname, f_name)
+
+    # Deciphering the initial information and saving it to file with no extension
+
+    keyDecipher = AES.new(k, AES.MODE_CFB, iv)
+    bin = open(f_name + ".bin", "rb").read()
+    f = open(f_name.split('.')[0], "wb")
+    f.write(keyDecipher.decrypt(bin))
+    f.close()
+
+    # Running a Signature verification
+
+    hashVerification(keyA_fname, f_name.split('.')[0])
+
+
+def auxFilesUnzip(all):
+    # Opening the input file
+
+    f = zipfile.ZipFile(all + ".all", "r")
+
+    # Extracting all of its files
+
+    f.extractall()
+
+
+def cleanUp(sig, key, bin, all):
+    # Removing all of the files created, except for the final deciphered file
+
+    os.remove(sig)
+    os.remove(key)
+    os.remove(bin)
+    os.remove(all)
+
+def checkFiles(f_name, pubKey, priKey, first_run):
+    # Checking for decrypting file's existence and access
+
+    if first_run and (not os.path.isfile(f_name + ".all") or not os.access(f_name + ".all", os.R_OK)):
+        print "Invalid file to decrypt. Aborting..."
+        sys.exit(1)
+
+    elif not first_run:
+        # Checking if all of the necessary files exist and are accessible
+
+        if not os.path.isfile(f_name + ".sig") or not os.access(f_name + ".sig", os.R_OK):
+            print "Invalid *.sig file. Aborting..."
+            sys.exit(2)
+        if not os.path.isfile(f_name + ".key") or not os.access(f_name + ".key", os.R_OK):
+            print "Invalid *.key file. Aborting..."
+            sys.exit(3)
+        if not os.path.isfile(f_name + ".bin") or not os.access(f_name + ".bin", os.R_OK):
+            print "Invalid *.bin file. Aborting..."
+            sys.exit(4)
+
+        # Checking if in case of output file's existence, it is writable
+
+        if os.path.isfile(f_name) and not os.access(f_name, os.W_OK):
+            print "Can't create output file. Aborting..."
+            sys.exit(5)
+
+    # Checking for public key's existence and access
+
+    if not os.path.isfile(pubKey) or not os.access(pubKey, os.R_OK):
+        print "Invalid public key file. Aborting..."
+        sys.exit(6)
+
+    # Checking for private key's existence and access
+
+    if not os.path.isfile(priKey) or not os.access(priKey, os.R_OK):
+        print "Invalid private key file. Aborting..."
+        sys.exit(7)
+
+
+# Gathering encrypting file name
+
+if len(sys.argv) > 2:
+    usage()
+elif len(sys.argv) == 1:
+    print "File name:"
+    f_name = raw_input(">>> ")
+else:
+    f_name = sys.argv[1]
+
+# Gathering keys names
+
+if pubKey == "":
+    print "Sender's public key file name:"
+    pubKey = raw_input(">>> ")
+if priKey == "":
+    print "Receiver's private key file name:"
+    priKey = raw_input(">>> ")
+
+
+f_name = f_name.split('.')[0]
+checkFiles(f_name, pubKey, priKey, True)
+auxFilesUnzip(f_name)
+checkFiles(f_name, pubKey, priKey, False)
+decipher(pubKey, priKey, f_name)
+cleanUp(f_name + ".sig", f_name + ".key", f_name + ".bin", f_name + ".all")
+\end{minted}
+
+\maketitle
+\nocite{*}
+\printbibliography[title={Referências}]
+
+\end{document}

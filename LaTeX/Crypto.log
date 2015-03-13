@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.10.25)  9 MAR 2015 21:32
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.10.25)  13 MAR 2015 15:11
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -868,7 +868,7 @@ LaTeX Info: Redefining \nameref on input line 18.
 runsystem(pygmentize -S default -f latex > Crypto.pyg)...executed.
 
  (./Crypto.pyg)
-<ua.pdf, id=52, 52.195pt x 55.20625pt>
+<ua.pdf, id=72, 52.195pt x 55.20625pt>
 File: ua.pdf Graphic file (type pdf)
  <use ua.pdf>
 Package pdftex.def Info: ua.pdf used on input line 31.
@@ -950,87 +950,139 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 64.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 67.
+<crypto1.jpg, id=137, 334.24875pt x 171.64125pt>
+File: crypto1.jpg Graphic file (type jpg)
+ <use crypto1.jpg>
+Package pdftex.def Info: crypto1.jpg used on input line 74.
+(pdftex.def)             Requested size: 277.03877pt x 142.26378pt.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 70.
+(babel)             in language  on input line 81.
+
+Underfull \hbox (badness 10000) in paragraph at lines 83--84
+
+ []
+
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 70.
+(babel)             in language  on input line 84.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 84.
 [2
 
-]
+pdfTeX warning (ext4): destination with the same identifier (name{figure.2.1}) 
+has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.84 
+      <./crypto1.jpg>]
+Underfull \hbox (badness 10000) in paragraph at lines 85--86
+
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 92.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 107.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 107.
+[3]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 109.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 109.
+ [4]
 Cap\'{\i }tulo 3.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 70.
+(babel)             in language  on input line 109.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 76.
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 79.
+(babel)             in language  on input line 115.
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 118.
+
 (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 82.
+(babel)             in language  on input line 121.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 82.
- [3
+(babel)             in language  on input line 121.
+ [5
 
 ]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 83.
+(babel)             in language  on input line 122.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <9> on input line 86.
+(Font)              <9> on input line 125.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 86.
+(Font)              <5> on input line 125.
 
-Underfull \hbox (badness 10000) in paragraph at lines 86--86
+Underfull \hbox (badness 10000) in paragraph at lines 125--125
 [][][][]$\T1/cmtt/m/n/9 https : / / www . dlitz . net / software / pycrypto / a
 pi / current / toc-[]Crypto .
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 88.
+(babel)             in language  on input line 127.
 
-Underfull \hbox (badness 10000) in paragraph at lines 90--90
+Underfull \hbox (badness 10000) in paragraph at lines 129--129
 [][][][]$\T1/cmtt/m/n/9 https : / / www . dlitz . net / software / pycrypto / a
 pi / current / toc-[]Crypto . Cipher .
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 93.
+(babel)             in language  on input line 132.
 
-Underfull \hbox (badness 10000) in paragraph at lines 95--95
+Underfull \hbox (badness 10000) in paragraph at lines 134--134
 [][][][]$\T1/cmtt/m/n/9 https : / / www . dlitz . net / software / pycrypto / a
 pi / current / toc-[]Crypto . Cipher .
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 97.
+(babel)             in language  on input line 136.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 97.
-[4]
+(babel)             in language  on input line 136.
+[6]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 98.
+(babel)             in language  on input line 137.
 
-Overfull \hbox (32.3313pt too wide) in paragraph at lines 100--101
+Overfull \hbox (32.3313pt too wide) in paragraph at lines 139--140
 \T1/cmr/m/n/10.95 A de-ci-fra-gem da men-sa-gem ci-frada en-vi-ada é feita pelo
  pro-grama []\T1/cmr/bx/n/10.95 de-cipherPy.py[][]\T1/cmr/m/n/10.95 .2[].
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 103.
+(babel)             in language  on input line 141.
+
+Overfull \hbox (0.8203pt too wide) in paragraph at lines 143--146
+\T1/cmr/m/n/10.95 forma, é agora pos-sí-vel ao uti-li-za-dor B, por meio do pro
+-grama []\T1/cmtt/m/n/10.95 decipherPy.py
+ []
+
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 103.
-[5]
+(babel)             in language  on input line 146.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 146.
+[7]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 147.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 151.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 156.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 156.
+ [8]
 Cap\'{\i }tulo 4.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 103.
+(babel)             in language  on input line 156.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 107.
+(babel)             in language  on input line 160.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 107.
-[6
+(babel)             in language  on input line 160.
+[9
 
 ]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 108.
+(babel)             in language  on input line 161.
 \openout5 = `Crypto.pyg'.
 
 runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
@@ -1044,28 +1096,28 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 55.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 55.
- [7]
+ [10]
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 109.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 109.
- [8]
+ [11]
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 163.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 163.
- [9])
+ [12])
 runsystem(rm Crypto.out.pyg)...executed.
 
 runsystem(rm Crypto.pyg)...executed.
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 303.
+(babel)             in language  on input line 356.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 303.
- [10]
+(babel)             in language  on input line 356.
+ [13]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 304.
+(babel)             in language  on input line 357.
 \openout5 = `Crypto.pyg'.
 
 runsystem(pygmentize -l python -f latex -F tokenmerge            -P linenos -P 
@@ -1077,35 +1129,38 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 55.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 55.
- [11]
+ [14]
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 109.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 109.
- [12])
+ [15])
 runsystem(rm Crypto.out.pyg)...executed.
 
 runsystem(rm Crypto.pyg)...executed.
 
 
 
-LaTeX Warning: Empty bibliography on input line 468.
+LaTeX Warning: Empty bibliography on input line 521.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 470.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 523.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 470.
+(babel)             in language  on input line 523.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 470.
-[13]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 470.
+(babel)             in language  on input line 523.
+[16]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 523.
  (./Crypto.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 470.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 470.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 523.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 523.
 Package rerunfilecheck Info: File `Crypto.out' has not changed.
-(rerunfilecheck)             Checksum: A5B0C5516FD5424B19F0E0D4B3C74C45;712.
+(rerunfilecheck)             Checksum: 3149C29A1E1E36CAD6B84DA057EBE3F5;1066.
 
 
 LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
 
 Package biblatex Warning: Please (re)run Biber on the file:
@@ -1117,19 +1172,19 @@ Package logreq Info: Writing requests to 'Crypto.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 13354 strings out of 495004
- 208660 string characters out of 6180661
- 649588 words of memory out of 5000000
- 16308 multiletter control sequences out of 15000+600000
+ 13396 strings out of 495004
+ 209178 string characters out of 6180661
+ 650075 words of memory out of 5000000
+ 16330 multiletter control sequences out of 15000+600000
  26233 words of font info for 55 fonts, out of 8000000 for 9000
  16 hyphenation exceptions out of 8191
- 44i,8n,37p,1119b,1396s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 44i,8n,37p,1113b,1396s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/ricardo/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecit0900.600pk> </home
 /ricardo/.texmf-var/fonts/pk/ljfour/jknappen/ec/ectt0900.600pk> </home/ricardo/
 .texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0600.600pk> </home/ricardo/.texmf-va
 r/fonts/pk/ljfour/jknappen/ec/ecrm0800.600pk> </home/ricardo/.texmf-var/fonts/p
-k/ljfour/jknappen/ec/ecbx1200.600pk> </home/ricardo/.texmf-var/fonts/pk/ljfour/
-jknappen/ec/ectt1095.600pk> </home/ricardo/.texmf-var/fonts/pk/ljfour/jknappen/
+k/ljfour/jknappen/ec/ectt1095.600pk> </home/ricardo/.texmf-var/fonts/pk/ljfour/
+jknappen/ec/ecbx1200.600pk> </home/ricardo/.texmf-var/fonts/pk/ljfour/jknappen/
 ec/ecbx1440.600pk> </home/ricardo/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx20
 74.600pk> </home/ricardo/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1095.600pk>
  </home/ricardo/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx2488.600pk> </home/r
@@ -1139,11 +1194,14 @@ fonts/pk/ljfour/jknappen/ec/eccc1200.600pk> </home/ricardo/.texmf-var/fonts/pk/
 ljfour/jknappen/ec/ecbx1728.600pk> </home/ricardo/.texmf-var/fonts/pk/ljfour/jk
 nappen/ec/ecrm1000.600pk> </home/ricardo/.texmf-var/fonts/pk/ljfour/jknappen/ec
 /ecxc1000.600pk> </home/ricardo/.texmf-var/fonts/pk/ljfour/jknappen/ec/eccc1000
-.600pk> </home/ricardo/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecxc2488.600pk>
-Output written on Crypto.pdf (18 pages, 172067 bytes).
+.600pk> </home/ricardo/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecxc2488.600pk></
+usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/sh
+are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on Crypto.pdf (21 pages, 230375 bytes).
 PDF statistics:
- 744 PDF objects out of 1000 (max. 8388607)
- 232 compressed objects within 3 object streams
- 36 named destinations out of 1000 (max. 500000)
- 102 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 848 PDF objects out of 1000 (max. 8388607)
+ 300 compressed objects within 3 object streams
+ 54 named destinations out of 1000 (max. 500000)
+ 147 words of extra memory for PDF output out of 10000 (max. 10000000)
 

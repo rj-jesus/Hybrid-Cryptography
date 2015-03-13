@@ -64,8 +64,47 @@
 \chapter{Criptografia}
 \label{chap.criptografia}
 
+\section{Criptografia Simétrica}
+\label{chalp.simétrica}
+
+A cifra simétrica é a forma mais básica de criptografia na qual é partilhada uma chave entre o emissor e o recetor da mensagem, geralmente designada por chave simétrica, e usada por ambos para cifrar e decifrar mensagens. Além de possuírem a mesma chave, os intervenientes também devem possuir o mesmo algoritmo, neste caso designado por algoritmo simétrico. A figura (?) ilustra de forma simples o uso de chave partilhada na realização da criptografia simétrica.
+
+\begin{figure}[ht]
+\center
+\fbox{\includegraphics[height=5cm]{crypto1.jpg}}
+\caption{Figura (?) – Uso de chave simétrica na criptografia simétrica. O remetente (sender) cifra o texto em claro (plaintext) através da chave privada (secret -key), produzindo-se um texto cifrado (ciphertext). O destinatário (recipient) da mensagem decifra-a usando a chave partilhada por ambos. O processo contrário também funciona, ou seja, a chave tanto pode servir para cifrar como para decifrar mensagens.}
+\label{fig:crypto1}
+\end{figure}
+
+A criptografia simétrica divide-se em dois tipos de cifras: contínua e por blocos.
+
+\subsection{Cifras Simétricas Contínuas}
+
+Na cifra contínua, a mensagem em claro é tratada como uma sequência de bytes (ou bits) onde cada sequência é cifrada sequencialmente. Usa uma operação relativamente simples para misturar a mensagem original com uma chave contínua pseudo-aleatória de dimensão finita também designada por keystream. Esta operação é tipicamente a função XOR (Exclusive- OR) visto que é uma função facilmente invertível.\\
+
+A operação de cifra consiste em aplicar a função XOR para cada sequência de bytes do texto em claro juntamente com a correspondente sequência de bytes da chave contínua (as sequências também podem ser de 1 bit). A expressão (1) mostra como é feita a operação de cifra.\\
+
+\begin{equation}
+C = T \oplus Ks
+\end{equation}
+
+
 \section{Criptografia Híbrida}
 \label{chap.híbrida}
+
+A cifragem híbrida tira partido não só da segurança extra e autenticidade que algoritmos assimétricos permitem, como também da velocidade oferecida por algoritmos simétricos. Assim, procura juntar-se o melhor de um e de outro processos. Assim sendo, o que este método geralmente permite é a cifragem da mensagem a transmitir, que poderá ser um ficheiro bastante grande e onde, portanto, torna-se muito mais proveitoso utilizar um algoritmo simétrico, segundo um metódo de cifram assimétrica. Veja-se um simples exemplo de utilização, em que um certo indivíduo A pretendo enviar uma mensagem cifrada a outro, B (segundo este metódo de cifragem híbrida):
+\begin{enumerate}
+\item A terá de obter a chave pública de B.
+\item Gera-se uma chave simétrica aleatória.
+\item Cifra-se a mensagem segundo um algoritmo de cifragem simétrica como AES.
+\item A chave simétrica utilizada é cifrada segundo um algoritmo assimétrico (utilizando a chave pública de B)
+\item Ambos a mensagem e a chave cifradas são enviados a B.
+\end{enumerate}
+O que B terá de fazer quando receber os ficheiros, de forma a decifrar a mensagem, deverá ser algo como:
+\begin{enumerate}
+\item B utiliza a sua chave privada para decifrar a chave simétrica utilizada para cifragem da mensagem.
+\item É utilizada essa chave simétrica para decifrar a mensagem enviada.
+\end{enumerate}
 
 \chapter{Implementação de Programas}
 \label{chap.programas}
@@ -97,8 +136,22 @@ O recetor da mensagem, indivíduo B, poderá utilizar a sua chave privada para o
 
 \section{Decifragem}
 
-A decifragem da mensagem cifrada enviada é feita pelo programa \href{../Python/Receiver/decipherPy.py}{\textbf{decipherPy.py}}\ref{App:decipher.py}. Também este programa recorre essencialmente a três funções para decifrar o ficheiro pedido, possuindo no entanto mais código, responsável por aumentar a sua robustez e utilidade. O seu ojectivo é ser capaz de decifrar a chave simétrica utilizada para cifrar a mensagem (com a chave privada do utilizador do programa decifrador, ou seja, com a chave privada do indivíduo B), e com ela decifrar a mensagem inicial. Posto isto, é corrida uma função de verificação que visa garantir não só a integridade do ficheiro como também a sua autenticidade. Para isto, o ficheiro que onde foi guardada a assinatura do ficheiro original é decifrado com a chave pública de A (quem envia a mensagem), sendo depois analizada a integridade do ficheiro comparando a sua síntese SHA-256 com a originalmente guardada. De seguida irão ser analizadas com maior detalhe cada uma das funções mais relacionadas com a decifragem do ficheiro.
+A decifragem da mensagem cifrada enviada é feita pelo programa \href{../Python/Receiver/decipherPy.py}{\textbf{decipherPy.py}}\ref{App:decipher.py}. Também este programa recorre essencialmente a três funções para decifrar o ficheiro pedido, possuindo no entanto mais código responsável por aumentar a sua robustez e utilidade. O seu ojectivo é ser capaz de decifrar a chave simétrica utilizada para cifrar a mensagem (com a chave privada do utilizador do programa decifrador, ou seja, com a chave privada do indivíduo B), e com ela decifrar a mensagem inicial. Posto isto, é corrida uma função de verificação que visa garantir não só a integridade do ficheiro como também a sua autenticidade. Para isto, o ficheiro onde foi guardada a assinatura do ficheiro original é decifrado com a chave pública de A (quem envia a mensagem), sendo depois analizada a integridade do ficheiro comparando a sua síntese SHA-256 com a originalmente guardada. De seguida irão ser analizadas em maior detalhe cada uma das funções mais relacionadas com a decifragem do ficheiro.
 
+\subsection{hashVerification}
+
+Esta é a função encarregue de verificar a autenticidade e integridade do ficheiro recebido. Note-se que mesmo que mesmo que a verificação falhe a decifragem prossegue.\\
+Para garantir a autenticidade e integridade do ficheiro, quando este foi cifrado foi gerada uma sua assinatura, guardada num ficheiro auxiliar \verb|*.sig|. Desta forma, é agora possível ao utilizador B, por meio do programa \verb|decipherPy.py| inferir sobre a origem deste, bem como se foi ou não adulterado. Para isto, recorre-se novamente ao módulo \verb|PKCS1_v1_5|, em especial à sua função \verb|RSASSA-PKCS1-V1_5-VERIFY|\footnote{\url{http://goo.gl/OPdiHU}} que permite, tal como o nome indica, permite correr as verificações pretendidas.\\
+Caso a verificação seja concluida com sucesso será imprimida uma mensagem para o terminal de forma a indicar isso mesmo, acompanhada da síntese SHA-256 do ficheiro. Caso contrário, apenas surgirá uma mensagem indicando que a verificação falhou.
+
+\subsection{keyReader}
+
+Esta função é a que permite a obtenção da chave (de 32 bytes) usada aquando da cifragem simétrica, bem como do código IV (de 16 bytes) utilizado no mesmo processo. Ambas as chaves encontram-se guardadas no ficheiro \verb|*.key|, sendo que a chave de 32 bytes está cifrada com a chave pública do recetor (utilizador B) enquanto que o código de 16 bytes não. De forma a obter ambas estas chaves, o programa lê os primeiros 16 bytes do ficheiro \verb|*.key|, onde o código IV foi guardado, procedendo-se depois à leitura do resto do ficheiro. Este "resto" é depois decifrado com a chave privada de B (recorrendo a \verb|PKCS1_OAEP|), obtendo-se assim a chave simétrica utilizada para cifragem do ficheiro original.
+
+\subsection{decipher}
+
+Esta é a função que permite a verdadeira decifragem do ficheiro (no entanto pelo menos a função \verb|keyReader| é também essencial para que esta decifragem seja possível). Esta decifragem é feita de modo inverso à cifragem feita pela função homóloga \verb|encipher| (do programa de cifragem), e, sendo assim, recorre-se também ao algoritmo AES, modo CFB, com o mesmo valor IV para decifragem do ficheiro. A chave utilizada nesta decifragem é também a mesma para a cifragem (já que estamos perante um algoritmo de cifragem simétrica), e obtida recorrendo-se à função \verb|keyReader|. No final da decifragem, é levada a cabo a verificação do ficheiro final através da função \verb|hashVerification|.\\
+No final, o ficheiro decifrado é guardado num ficheiro com o mesmo nome que o indicado para decifragem, sem extensão.
 
 \chapter{Conclusões}
 \label{chap.conclusões}

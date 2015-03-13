@@ -6,6 +6,8 @@
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Figura (?) \IeC {\textendash } Uso de chave sim\IeC {\'e}trica na criptografia sim\IeC {\'e}trica. O remetente (sender) cifra o texto em claro (plaintext) atrav\IeC {\'e}s da chave privada (secret -key), produzindo-se um texto cifrado (ciphertext). O destinat\IeC {\'a}rio (recipient) da mensagem decifra-a usando a chave partilhada por ambos. O processo contr\IeC {\'a}rio tamb\IeC {\'e}m funciona, ou seja, a chave tanto pode servir para cifrar como para decifrar mensagens.}}{2}{figure.2.1}
+\defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }

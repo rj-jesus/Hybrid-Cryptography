@@ -171,17 +171,19 @@ Por outro lado, se o destinatário pretender garantir a autenticação da origem
 \section{Criptografia Híbrida}
 \label{chap.híbrida}
 
-A cifragem híbrida tira partido não só da segurança extra e autenticidade que algoritmos assimétricos permitem, como também da velocidade oferecida por algoritmos simétricos. Assim, procura juntar-se o melhor de um e de outro processos. Assim sendo, o que este método geralmente permite é a cifragem da mensagem a transmitir, que poderá ser um ficheiro bastante grande e onde, portanto, torna-se muito mais proveitoso utilizar um algoritmo simétrico, segundo um metódo de cifram assimétrica. Veja-se um simples exemplo de utilização, em que um certo indivíduo A pretendo enviar uma mensagem cifrada a outro, B (segundo este metódo de cifragem híbrida):
+A cifragem híbrida tira partido não só da segurança extra e autenticidade que algoritmos assimétricos permitem, como também da velocidade oferecida por algoritmos simétricos. Assim, este método procura juntar o melhor de ambos os processos. O que este método geralmente permite é a cifragem da mensagem a transmitir, que poderá ser um ficheiro bastante grande e onde, portanto, torna-se muito mais proveitoso utilizar um algoritmo simétrico, segundo um metódo de cifram simétrica. No entanto, a chave utilizada para cifrar o ficheiro é (geralmente) gerada aleatóriamente, sendo guardada noutro ficheiro e cifrada segundo um processo de chaves assimétricas. Quando o ficheiro principal é enviado, juntamente envia-se a chave simétrica utilizada para o cifrar por exemplo num ficheiro auxiliar (relembre-se que esta chave simétrica encontra-se também ela cifrada).\\
+
+Veja-se um simples exemplo de utilização, em que um certo indivíduo \textbf{A} pretendo enviar uma mensagem cifrada a outro \textbf{B} (segundo este metódo de cifragem híbrida):
 \begin{enumerate}
-\item A terá de obter a chave pública de B.
+\item \textbf{A} terá de obter a chave pública de \textbf{B}.
 \item Gera-se uma chave simétrica aleatória.
 \item Cifra-se a mensagem segundo um algoritmo de cifragem simétrica como AES.
-\item A chave simétrica utilizada é cifrada segundo um algoritmo assimétrico (utilizando a chave pública de B)
-\item Ambos a mensagem e a chave cifradas são enviados a B.
+\item A chave simétrica utilizada é cifrada segundo um algoritmo assimétrico (utilizando a chave pública de \textbf{B})
+\item Ambas a mensagem e a chave cifradas são enviados a \textbf{B}.
 \end{enumerate}
-O que B terá de fazer quando receber os ficheiros, de forma a decifrar a mensagem, deverá ser algo como:
+O que \textbf{B} terá de fazer quando receber os ficheiros, de forma a decifrar a mensagem, deverá ser algo como:
 \begin{enumerate}
-\item B utiliza a sua chave privada para decifrar a chave simétrica utilizada para cifragem da mensagem.
+\item \textbf{B} utiliza a sua chave privada para decifrar a chave simétrica utilizada para cifragem da mensagem.
 \item É utilizada essa chave simétrica para decifrar a mensagem enviada.
 \end{enumerate}
 

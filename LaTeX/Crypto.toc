@@ -1,0 +1,43 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\defcounter {refsection}{0}\relax 
+\select@language {portuguese}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {1}Introdu\IeC {\c c}\IeC {\~a}o}{1}{chapter.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {2}Criptografia}{2}{chapter.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.1}Fun\IeC {\c c}\IeC {\~o}es de S\IeC {\'\i }ntese}{3}{section.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.2}Criptografia Sim\IeC {\'e}trica}{4}{section.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.2.1}Cifras Sim\IeC {\'e}tricas Cont\IeC {\'\i }nuas}{5}{subsection.2.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.2.2}Cifras Sim\IeC {\'e}tricas por Blocos}{6}{subsection.2.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.3}Criptografia Assim\IeC {\'e}trica}{7}{section.2.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.4}Criptografia H\IeC {\'\i }brida}{8}{section.2.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {3}Implementa\IeC {\c c}\IeC {\~a}o de Programas}{10}{chapter.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.1}Cifragem}{10}{section.3.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.1.1}sigGenerator}{11}{subsection.3.1.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.1.2}keyGenerator}{11}{subsection.3.1.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.1.3}encipher}{12}{subsection.3.1.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.2}Decifragem}{12}{section.3.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.2.1}hashVerification}{12}{subsection.3.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.2.2}keyReader}{13}{subsection.3.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {3.2.3}decipher}{13}{subsection.3.2.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {4}Conclus\IeC {\~o}es}{14}{chapter.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {.1}encipherPy.py}{15}{section.Alph0.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {.2}decipherPy.py}{19}{section.Alph0.2}

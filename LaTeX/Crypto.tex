@@ -276,6 +276,9 @@ No final, o ficheiro decifrado é guardado num ficheiro com o mesmo nome que o i
 \chapter{Conclusões}
 \label{chap.conclusões}
 
+Com este trabalho foi possível verificar que ao adoptar um esquema híbrido podemos tirar partido da velocidade que um esquema de encriptação com chaves partilhadas permite, bem como por exemplo da segurança extra e autenticação que encriptação com pares de chaves oferecem. Posto isto, pudemos implementar dois programas, um que cifra e outro que decifra, que utilizam este mesmo conceito para garantir a transmissão de informação de forma confidencial e de onde se possa inferir sobre a sua autenticidade e integridade. Isto é possível pois recorre-se a um algoritmo simétrico para cifrar (e decifrar) o ficheiro a transmitir (o que poderia não ser viável caso se se recorresse a um método assimétrico visto este ser muito mais lento e enventualmente o ficheiro poder ser de grandes dimensões), mas ainda assim sendo a chave simétrica usada neste processo de cifragem ela própria cifrada com a chave pública do receptor (que a decifra com a sua chave privada), e sendo gerada uma assinatura do ficheiro a partir de uma sua síntese e da chave privada do emissor, não se perdem as vantagens de um método de encriptação assimétrica. Isto garante que apenas o recetor será capaz de decifrar a chave que permite decifrar a informação enviada, bem como que este será capaz de verificar o ficheiro recorrendo à sua assinatura, podendo ter certezas sobre a sua origem e se foi ou não adulterado.\\
+Assim sendo, pudemos verificar que nem métodos simétricos nem assimétricos são perfeitos na transmissão de informação de forma segura. No entanto, ambos apesar dos seus possiveis problemas, ambos têm importantes vantagens, e desta forma um método de encriptação que se baseie num esquema híbrido poderá ser um bom compromisso entre as qualidades e desvantagens de um, e as qualidades e desvantagens de outro. 
+
 \appendix
 \newpage
 \section{encipherPy.py}

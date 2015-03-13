@@ -64,6 +64,21 @@
 \chapter{Criptografia}
 \label{chap.criptografia}
 
+\section{Funções de Síntese}
+
+Existem três tipos de algoritmos criptográficos: as chaves simétricas, assimétricas e as funções de síntese (Digest functions ou Hash functions). Ao contrário destas chaves, as funções de síntese não usam chaves. As funções de síntese produzem um valor de dimensão constante (hash value) a partir de um volume arbitrário de bits. Além disso, podem produzir valores diferentes para textos semelhantes. O principal objetivo destas funções na criptografia é a integridade dos dados. O valor que é produzido fornece uma impressão digital (Digital fingerprint) do conteúdo da mensagem, o que permite assegurar que a mensagem não seja alterada por pessoas mal-intencionadas ou, por exemplo, vírus. São vários os algoritmos que produzem essa síntese, entre os quais o MD5 e o SHA-1 com 128 e 160 bits de tamanho, respetivamente. Estes algoritmos podem ser considerados eficientes uma vez que existe uma percentagem muito baixa de se encontrar dois textos com valores de síntese iguais.\\
+
+Uma das situações onde se podem encontrar as funções de síntese é nas assinaturas digitais. A figura (?) esquematiza de forma simples os processos associados à produção de documentos assinados digitalmente.
+
+\begin{figure}[ht]
+\center
+\fbox{\includegraphics[height=5cm]{crypto5.png}}
+\caption{Figura (?) – Criação de assinaturas digitais e funções de síntese. O remetente da mensagem cria uma assinatura digital aplicando uma função de síntese (Hash function) no documento (Data), produzindo-se um ficheiro sintetizado (Hash). Este ficheiro é cifrado usando a sua chave privada de forma a produzir uma assinatura digital que é depois anexada ao documento (Digitally signed data). Após a receção do documento assinado, o destinatário decifra a assinatura através da chave pública do assinante e executa uma síntese ao próprio ficheiro. São produzidos dois ficheiros Hash e a verificação consiste em comparar os valores produzidos, i.e., se forem iguais a assinatura é considerada válida.}
+\label{fig:crypto5}
+\end{figure}
+
+De referir que no contexto das assinaturas digitais é aplicado um dos objetivos da criptografia moderna: o não-repúdio. Ou seja, o remetente não deverá ser capaz de negar mais tarde que foi realmente a pessoa que enviou a mensagem.
+
 \section{Criptografia Simétrica}
 \label{chalp.simétrica}
 
@@ -82,12 +97,59 @@ A criptografia simétrica divide-se em dois tipos de cifras: contínua e por blo
 
 Na cifra contínua, a mensagem em claro é tratada como uma sequência de bytes (ou bits) onde cada sequência é cifrada sequencialmente. Usa uma operação relativamente simples para misturar a mensagem original com uma chave contínua pseudo-aleatória de dimensão finita também designada por keystream. Esta operação é tipicamente a função XOR (Exclusive- OR) visto que é uma função facilmente invertível.\\
 
-A operação de cifra consiste em aplicar a função XOR para cada sequência de bytes do texto em claro juntamente com a correspondente sequência de bytes da chave contínua (as sequências também podem ser de 1 bit). A expressão (1) mostra como é feita a operação de cifra.\\
+A operação de cifra consiste em aplicar a função XOR para cada sequência de bytes do texto em claro juntamente com a correspondente sequência de bytes da chave contínua (as sequências também podem ser de 1 bit). A expressão (1) mostra como é feita a operação de cifra.
 
 \begin{equation}
 C = T \oplus Ks
 \end{equation}
 
+Onde C é o criptograma, T é o texto em claro e Ks a chave contínua (keystream).\\
+
+A operação de decifra pode ser executada aplicando novamente a função XOR. A expressão (2) mostra como é feita a operação de decifra.
+
+\begin{equation}
+T = C \oplus Ks
+\end{equation}
+
+Onde T é o texto em claro, C é o criptograma e Ks a chave contínua (keystream).\\
+
+De referir que é usada a mesma chave nas duas operações (refs para Expressão (1) e (2)).
+
+\subsection{Cifras Simétricas por Blocos}
+
+Na cifra por bloco, a mensagem é dividida em blocos de igual dimensão sendo cada um deles processados de forma independente dos restantes. Conforme o algoritmo aplicado para cifrar e decifrar mensagens, os blocos podem ter dimensões diferentes. Por exemplo, o DES (Data Encryption Standard) e o AES (Data Encryption Standard) são dois algoritmos bastante usados neste tipo de cifra, mas, quer um quer outro usam blocos de tamanhos distintos, 64 e 128 bits respetivamente. O criptograma é criado após a criação de vários pequenos criptogramas representando cada um dos blocos cifrados.\\
+
+Um conceito bastante importante neste tipo de cifra é o alinhamento ou padding. Existem modos de cifra por blocos que põem particularmente em prática este conceito. Um deles é o ECB (Electronic Code Book), onde possibilita a separação de ficheiros em blocos de dimensões iguais. Por exemplo, se um determinado ficheiro for separado em blocos e verificar-se que o último não tem uma dimensão igual à dos restantes, é adicionado uma “string” de bytes (ou bits) no final desse bloco de forma a obter o tamanho pretendido. A esse acréscimo de bits dá-se o nome de excipiente, sendo necessário indicar a sua existência e comprimento de forma a facilitar a decifra por parte de quem recebe a mensagem cifrada. A figura (?) ilustra muito simples as operações de cifra nas cifras contínuas e por blocos.
+
+\begin{figure}[ht]
+\center
+\fbox{\includegraphics[height=5cm]{crypto2.jpg}}
+\caption{Figura (?) – Operações de cifra na cifra por blocos (Block Cipher) e contínua (Stream Cipher). Na cifra por blocos, o texto em claro é partido em blocos de dimensões iguais (P1, P2, …, Pn) sendo que cada um deles cifrados de forma independente dos restantes, obtendo-se vários criptogramas (C1, C2, …, Cn) que serão o criptograma. Na cifra contínua, é gerada uma chave contínua e a combinação desta com o texto em claro através da função XOR gera o criptograma (C).}
+\label{fig:crypto2}
+\end{figure}
+
+\section{Criptografia Assimétrica}
+\label{chap.assimétrica}
+
+A criptografia assimétrica é uma área da criptografia onde cada um dos interlocutores da comunicação tem na sua possessão um par de chaves, uma privada (ou secreta) e outra pública. A chave pública é usada principalmente para cifrar mensagens ou para verificar assinaturas digitais. O termo ‘assimétrico’ vem do facto de se usar duas chaves, mas ambas com funções opostas. A criptografia assimétrica usa cifras por blocos e pode assegurar a confidencialidade e a autenticação nas mensagens transmitidas dependendo de como se usam as chaves e qual para cada situação.\\
+
+Se se pretender comunicar confidencialmente, a chave pública do destinatário é usada para cifrar e a chave privada do destinatário é usada para decifrar, ou seja só o destinatário conseguirá decifrar o criptograma através da sua chave privada. Por outro lado, o destinatário não tem conhecimento de quem remeteu a mensagem cifrada, ou seja, neste caso não há autenticação. A figura (?) ilustra o uso correto das chaves assimétricas para garantir a confidencialidade na transmissão das mensagens entre os interlocutores da comunicação.\\
+
+\begin{figure}[ht]
+\center
+\fbox{\includegraphics[height=5cm]{crypto3.png}}
+\caption{Figura (?) – Criptografia assimétrica e confidencialidade. O remetente (sender) deve conhecer a chave pública do destinatário (receiver) para cifrar as suas mensagens e assim comunicar de forma confidencial. O destinatário usa por sua vez a sua chave privada para decifrar o criptograma. Neste caso, só é usado o par de chaves do lado do destinatário.}
+\label{fig:crypto3}
+\end{figure}
+
+Por outro lado, se o destinatário pretender garantir a autenticação da origem da mensagem recebida, por exemplo em documentos com assinaturas digitais, as chaves são usadas de forma contrária, ou seja, a chave privada do remetente é usada para cifrar as mensagens. O destinatário decifra o criptograma usando a chave pública do remetente e verifica que foi este último quem gerou o criptograma. Neste caso, não há confidencialidade visto que a chave usada para cifrar é pública (chave pública do remetente), ou seja, quem a conhecer poderá decifrar o criptograma. A figura (?) ilustra a transmissão de mensagens usando chaves assimétricas para garantir a autenticação da origem das mesmas.\\
+
+\begin{figure}[ht]
+\center
+\fbox{\includegraphics[height=5cm]{crypto4.jpg}}
+\caption{Figura (?) – Criptografia assimétrica e autenticação. O emissor (Alice) cifra a mensagem através de um algoritmo assimétrico e da sua chave privada (Alice’s Private Key) e envia para o destinatário (Bob). Este, por sua vez, decifra o criptograma através da chave pública do emissor (Alice’s Public Key) verificando a autenticação do autor. Neste caso, só se usa o par de chaves do lado do emissor. }
+\label{fig:crypto4}
+\end{figure}
 
 \section{Criptografia Híbrida}
 \label{chap.híbrida}

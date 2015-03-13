@@ -64,6 +64,25 @@
 \chapter{Criptografia}
 \label{chap.criptografia}
 
+A criptografia é a arte ou ciência de escrever uma mensagem de forma a ocultar o seu conteúdo. Dito por outras palavras, a criptografia usa técnicas que permitem que várias entidades possam transmitir mensagens de forma segura e privada, sem que estas sejam intercetadas e aproveitadas por terceiros. Independentemente do método que for usado para ocultar dados, a criptografia moderna pretende satisfazer 4 objetivos fundamentais:
+
+\begin{description}
+\item[Confidencialidade:] caso alguém intercetar a mensagem, essa pessoa não deve ser capaz de ler e perceber o seu conteúdo.
+\item[Integridade dos dados:] o destinatário da mensagem deve ser capaz de verificar se a mensagem foi alterada durante a transmissão, acidental ou deliberadamente.
+\item[Autenticação:] o destinatário da mensagem deve ser capaz de verificar a sua origem.
+\item[Não-repúdio:] o remetente não deve ser capaz de negar mais tarde que foi realmente a pessoa que enviou a mensagem para o destinatário. O destinatário também não deve ser capaz de negar que recebeu a respetiva mensagem.
+\end{description}
+Existem alguns conceitos que são essenciais para a compreensão das operações envolvidas na criptografia. O termo cifra é o processo que transforma um texto em claro num texto cifrado ou geralmente chamado de criptograma. O termo decifra é a operação inversa da cifra, ou seja, transforma o criptograma no texto em claro original. As operações de cifra e decifra usam algoritmos e chaves, sendo estas utilizadas como parâmetros nos respetivos algoritmos. Os algoritmos são modelos matemáticos que contêm um conjunto de operações (ou regras) que permitem transformar os dados, ou seja, neste contexto, possibilita as operações de cifra e decifra. A figura \ref{fig:crypto0} mostra de forma simples os processos de cifra e decifra na criptografia.
+
+\begin{figure}[ht]
+\center
+\fbox{\includegraphics[height=3cm]{crypto0.jpg}}
+\caption{Processos básicos da cifra e decifra na criptografia. A mensagem original (plain-text) é cifrada usando um algoritmo e uma chave, produzindo uma mensagem cifrada (cipher-text). A mensagem cifrada é por sua vez decifrada usando um algoritmo e uma chave diferentes, obtendo-se a mensagem original (plain-text).}
+\label{fig:crypto0}
+\end{figure}
+
+A criptografia pode ser dividida em várias áreas, entre os quais as funções de síntese, as criptografias simétrica, assimétrica e híbrida.
+
 \section{Funções de Síntese}
 
 Existem três tipos de algoritmos criptográficos: as chaves simétricas, assimétricas e as funções de síntese (Digest functions ou Hash functions). Ao contrário destas chaves, as funções de síntese não usam chaves. As funções de síntese produzem um valor de dimensão constante (hash value) a partir de um volume arbitrário de bits. Além disso, podem produzir valores diferentes para textos semelhantes. O principal objetivo destas funções na criptografia é a integridade dos dados. O valor que é produzido fornece uma impressão digital (Digital fingerprint) do conteúdo da mensagem, o que permite assegurar que a mensagem não seja alterada por pessoas mal-intencionadas ou, por exemplo, vírus. São vários os algoritmos que produzem essa síntese, entre os quais o MD5 e o SHA-1 com 128 e 160 bits de tamanho, respetivamente. Estes algoritmos podem ser considerados eficientes uma vez que existe uma percentagem muito baixa de se encontrar dois textos com valores de síntese iguais.\\

@@ -45,7 +45,7 @@
 
 \begin{abstract}
 
-
+Com o objectivo de implementar dois programas, um que cifre e outro que decifre um dado ficheiro e que utilizem um esquema híbrido de forma a fornecer autenticidade e confidencialidade, mantendo ainda assim um rápido processamento do ficheiro, começou por se estudar o que é criptografia simétrica, assimétrica, e de que forma ambas se relacionam de forma a obter um esquema híbrido. De seguida procedeu-se à implementação dos programas em Python e descreveu-se como foram implementadas as funções que processam a componente criptográfica dos mesmos.
 
 \end{abstract}
 
@@ -58,6 +58,18 @@
 
 \chapter{Introdução}
 \label{chap.introdução}
+
+Cada vez mais a criptografia desempanha um processo fundamental na sociedade atual. Veja-se como a decifram de "Enigma"\footnote{\url{http://en.wikipedia.org/wiki/Enigma_machine}} teve uma importância fundamental no desenrolar da Segunda Guerra Mundial, ou como o recente ataque à Sony Pictures Entertainment fez os Estados Unidos da América temer pela sua cibersegurança.\\
+
+Assim, e visto que a cada dia que passa estamos mais ligados uns aos outros através da Web, é cada vez mais necessário manter a confidencialidade na partilha de informação, onde algorítmos de cifragem e decifragem desempanham um processo crucial. No entanto, nos dias que correm temos à nossa disposição inúmeros algorítmos deste tipo, de onde se destacam os algorítmos simétricos e assimétricos.\\
+
+Em relação aos algoritmos simétricos, destaca-se a velocidade com que determinada informação pode ser cifrada e decifrada. Nestes algoritmos é utilizada uma chave partilhada entre emissor e recetor para transmitir informação de uma forma confidencial. Já em relação a algoritmos assimétricos, estes são centenas senão milhares de vezes mais lentos que os métodos simétricos, no entanto visto utilizarem um par de chaves de forma a garantir transmissão de informação de uma forma segura, onde existe uma chave pública partilhada com os demais e uma privada a que apenas o próprio indivíduo deve ter acesso, este método garante, por exemplo, que um ficheiro cifrado com a chave pública de um indivíduo \textbf{A} pode apenas ser decifrado pelo próprio \textbf{A} com a sua chave privada (note-se que informação cifrada com uma chave pública só pode ser decifrada pela respectiva chave privada, ou vice-versa). Para além disso, estes métodos por pares de chaves são considerados mais seguros e permitem também garantir questões de autenticidade.\\
+
+Com base nestas vantages e desvantagens de um e outro métodos, surgiu o esquema de encriptação híbrida que procura tirar partido das vantagens de ambos os métodos (velocidade da encriptação simétrica e segurança da encriptação assimétrica).\\
+
+Estes temas relacionados com diferentes formas de cifragem encontram-se desenvolvidos na secção \ref{chap.criptografia} deste relatório.\\
+
+Com isto em mente foram implementados dois programas escritos em linguagem Python e recorrendo à biblioteca PyCrypto. Um funcionando como programa que cifra, e outro que decifra, utilizando ambos um esquema híbrido para garantir a transmissão de informação de forma eficiente e segura. A análise recorrente da implementação destes programas encontra-se na secção \ref{chap.programas}.
 
 \chapter{Criptografia}
 \label{chap.criptografia}

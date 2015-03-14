@@ -6,7 +6,7 @@ keyPair = RSA.generate(1024)
 # For PrivateKey Generation
 
 f = open("priKey.pem", "w")
-f.write(keyPair.exportKey())
+f.write(keyPair.exportKey("PEM", "Code"))
 f.close()
 
 # For PublicKey Generation

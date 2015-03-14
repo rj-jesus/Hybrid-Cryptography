@@ -49,7 +49,7 @@ def sigVerification(pubKey_fname, f_name):
 def keyReader(privKey_fname, f_name, priPass):
     # Reading private key to decipher symmetric key used
 
-    keyPair = RSA.importKey(open(privKey_fname, "r").read(), priPass)
+    keyPair = RSA.importKey(open(privKey_fname, "r").read(), passphrase=priPass)
     keyDecipher = PKCS1_OAEP.new(keyPair)
 
     # Reading iv and symmetric key used during encryption

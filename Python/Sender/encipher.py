@@ -41,7 +41,7 @@ def sigGenerator(priKey_fname, f_name, priPass):
 
     # Reading private key to sign file with
 
-    keyPair = RSA.importKey(open(priKey_fname, "r").read(), priPass)
+    keyPair = RSA.importKey(open(priKey_fname, "r").read(), passphrase=priPass)
     keySigner = PKCS1_v1_5.new(keyPair)
 
     # Saving signature to *.sig file
@@ -185,7 +185,7 @@ if pubKey == "":
 
 # Running checks to files
 
-checkFiles(f_name, pubKey, priKey)
+#checkFiles(f_name, pubKey, priKey)
 
 # Reading password if not assigned:
 

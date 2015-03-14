@@ -17,6 +17,9 @@ priKey = "B_PrivateKey.pem"
 # File name to decrypt
 f_name = ""
 
+# Private key password:
+priPass = ""
+
 
 def usage():
     print "python decipher.py <file_name>"
@@ -43,10 +46,10 @@ def sigVerification(pubKey_fname, f_name):
         print "The signature is not authentic."
 
 
-def keyReader(privKey_fname, f_name):
+def keyReader(privKey_fname, f_name, priPass):
     # Reading private key to decipher symmetric key used
 
-    keyPair = RSA.importKey(open(privKey_fname, "r").read())
+    keyPair = RSA.importKey(open(privKey_fname, "r").read(), priPass)
     keyDecipher = PKCS1_OAEP.new(keyPair)
 
     # Reading iv and symmetric key used during encryption
@@ -58,10 +61,10 @@ def keyReader(privKey_fname, f_name):
     return k, iv
 
 
-def decipher(keyA_fname, keyB_fname, f_name):
+def decipher(keyA_fname, keyB_fname, f_name, priPass):
     # Getting symmetric key used and iv value generated at encryption process
 
-    k, iv = keyReader(keyB_fname, f_name)
+    k, iv = keyReader(keyB_fname, f_name, priPass)
 
     # Deciphering the initial information and saving it to file with no extension
 
@@ -157,8 +160,29 @@ if priKey == "":
     priKey = raw_input(">>> ")
 
 f_name = f_name.split('.')[0]
+
+# Checking for *.all file and keys' files
+
 checkFiles(f_name, pubKey, priKey, True)
+
+# Unzipping all files
+
 auxFilesUnzip(f_name)
+
+# Checking for *.sig, *.key, *.bin files
+
 checkFiles(f_name, pubKey, priKey, False)
-decipher(pubKey, priKey, f_name)
+
+# Reading password if not assigned
+
+if priPass == "":
+    print "Private key password (ENTER for empty value):"
+    priPass = raw_input(">>> ")
+
+# Deciphering file
+
+decipher(pubKey, priKey, f_name, priPass)
+
+# Cleaning all files but the deciphered file
+
 cleanUp(f_name + ".sig", f_name + ".key", f_name + ".bin", f_name + ".all")

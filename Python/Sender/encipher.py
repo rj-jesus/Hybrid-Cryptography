@@ -19,13 +19,16 @@ pubKey = "B_PublicKey.pem"
 # File name to encrypt
 f_name = ""
 
+# Private key password:
+priPass = ""
+
 
 def usage():
     print "python encipher.py <file_name>"
     sys.exit(-1)
 
 
-def sigGenerator(priKey_fname, f_name):
+def sigGenerator(priKey_fname, f_name, priPass):
     # Opening and reading file to encrypt
 
     f = open(f_name, "r")
@@ -38,7 +41,7 @@ def sigGenerator(priKey_fname, f_name):
 
     # Reading private key to sign file with
 
-    keyPair = RSA.importKey(open(priKey_fname, "r").read())
+    keyPair = RSA.importKey(open(priKey_fname, "r").read(), priPass)
     keySigner = PKCS1_v1_5.new(keyPair)
 
     # Saving signature to *.sig file
@@ -69,7 +72,7 @@ def keyGenerator(pubKey_fname, f_name, iv):
     return h.digest()
 
 
-def encipher(keyA_fname, keyB_fname, f_name):
+def encipher(keyA_fname, keyB_fname, f_name, priPass):
     # Opening file to encrypt in binary reading mode
 
     f = open(f_name, "rb")
@@ -78,7 +81,7 @@ def encipher(keyA_fname, keyB_fname, f_name):
 
     # Generating file's signature (and saving it)
 
-    sigGenerator(keyA_fname, f_name)
+    sigGenerator(keyA_fname, f_name, priPass)
 
     # Generating initializing vector for AES Encryption
 
@@ -184,9 +187,15 @@ if pubKey == "":
 
 checkFiles(f_name, pubKey, priKey)
 
+# Reading password if not assigned:
+
+if priPass == "":
+    print "Private key password (ENTER for empty value):"
+    priPass = raw_input(">>> ")
+
 # Ciphering file (and generating all auxiliary files)
 
-encipher(priKey, pubKey, f_name)
+encipher(priKey, pubKey, f_name, priPass)
 
 # Generating output file and clean up
 

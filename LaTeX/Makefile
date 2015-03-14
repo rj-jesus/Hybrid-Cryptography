@@ -2,7 +2,7 @@ TPDFC = pdflatex
 TPDFFLAGS = -shell-escape
 TOBJ = $(shell find . -type f -iname '*.tex')
 BC = biber
-BOBJ = $(shell find . -type f -iname '*.bcf')
+BOBJ = $(subst .tex, .bcj, $(TOBJ))
 
 all : 
 	$(TPDFC) $(TPDFFLAGS) $(TOBJ)

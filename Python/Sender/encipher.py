@@ -1,4 +1,6 @@
-import os, sys, zipfile
+import os
+import sys
+import zipfile
 from Crypto import Random
 from Crypto.Cipher import AES, PKCS1_OAEP
 from Crypto.Hash import SHA256
@@ -7,7 +9,7 @@ from Crypto.Random import random
 from Crypto.Signature import PKCS1_v1_5
 
 
-# Define Public and Private key names!
+# Define public and private key names for faster usage
 
 # Sender's private key:
 priKey = "A_PrivateKey.pem"
@@ -17,8 +19,10 @@ pubKey = "B_PublicKey.pem"
 # File name to encrypt
 f_name = ""
 
+
 def usage():
     print "python encipherPy.py <File_Name>"
+    sys.exit(-1)
 
 
 def sigGenerator(priKey_fname, f_name):
@@ -28,16 +32,16 @@ def sigGenerator(priKey_fname, f_name):
     buffer = f.read()
     f.close()
 
-    # Creating Hash of the file. Using SHA-256 (there was a problem using SHA-512)
+    # Creating hash of the file. Using SHA-256 (SHA-512 rose problems)
 
     h = SHA256.new(buffer)
 
-    # Reading PrivateKey to sign file with
+    # Reading private key to sign file with
 
     keyPair = RSA.importKey(open(priKey_fname, "r").read())
     keySigner = PKCS1_v1_5.new(keyPair)
 
-    # Saving Signature to *.sig File
+    # Saving signature to *.sig file
 
     f = open(f_name.split('.')[0] + ".sig", "w")
     f.write(keySigner.sign(h))
@@ -49,12 +53,12 @@ def keyGenerator(pubKey_fname, f_name, iv):
 
     h = SHA256.new(str(random.getrandbits(1024)))
 
-    # Reading PublicKey to encrypt AES key with
+    # Reading public key to encrypt AES key with
 
     keyPair = RSA.importKey(open(pubKey_fname, "r").read())
     keyCipher = PKCS1_OAEP.new(keyPair.publickey())
 
-    # Saving encrypted key to *.key File
+    # Saving encrypted key to *.key file
 
     f = open(f_name.split('.')[0] + ".key", "w")
     f.write(iv + keyCipher.encrypt(h.digest()))
@@ -66,18 +70,17 @@ def keyGenerator(pubKey_fname, f_name, iv):
 
 
 def encipher(keyA_fname, keyB_fname, f_name):
-    # Opening file to encrypt in binary mode
+    # Opening file to encrypt in binary reading mode
 
     f = open(f_name, "rb")
     buffer = f.read()
     f.close()
 
-    # Generating file's Signature (and saving it)
+    # Generating file's signature (and saving it)
 
     sigGenerator(keyA_fname, f_name)
 
-    # Generating initializing vector for AES Encryption (there were problems when using different AES modes)
-    # Needs to be saved in, for example, .key File!!!
+    # Generating initializing vector for AES Encryption (different AES modes rose problems)
 
     iv = Random.new().read(AES.block_size)
 
@@ -85,7 +88,7 @@ def encipher(keyA_fname, keyB_fname, f_name):
 
     k = keyGenerator(keyB_fname, f_name, iv)
 
-    # Encrypting and saving result to *.bin File. Using CFB mode
+    # Encrypting and saving result to *.bin file. Using CFB mode
 
     keyCipher = AES.new(str(k), AES.MODE_CFB, iv)
     f = open(f_name.split('.')[0] + ".bin", "wb")
@@ -168,7 +171,7 @@ elif len(sys.argv) == 1:
 else:
     f_name = sys.argv[1]
 
-# Gathering keys names
+# Gathering names of keys
 
 if priKey == "":
     print "Sender's private key file name:"

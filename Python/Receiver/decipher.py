@@ -1,11 +1,13 @@
-import os, sys, zipfile
+import os
+import sys
+import zipfile
 from Crypto.Cipher import PKCS1_OAEP, AES
 from Crypto.Hash import SHA256
 from Crypto.PublicKey import RSA
 from Crypto.Signature import PKCS1_v1_5
 
 
-# Define Public and Private key names!
+# Define public and private key names for faster usage
 
 # Sender's public key:
 pubKey = "A_PublicKey.pem"
@@ -15,22 +17,24 @@ priKey = "B_PrivateKey.pem"
 # File name to decrypt
 f_name = ""
 
+
 def usage():
-    print "python decipherPy.py <File_Name>"
+    print "python decipher.py <file_name>"
+    sys.exit(-1)
 
 
-def hashVerification(pubKey_fname, f_name):
+def sigVerification(pubKey_fname, f_name):
     # Generating decrypted file's SHA-256
 
     h = SHA256.new()
     h.update(open(f_name, "r").read())
 
-    # Reading PublicKey to check Signature with
+    # Reading public key to check signature with
 
     keyPair = RSA.importKey(open(pubKey_fname, "r").read())
     keyVerifier = PKCS1_v1_5.new(keyPair.publickey())
 
-    # If Signature is right, prints SHA-256. Otherwise states that the file is not authentic
+    # If signature is right, prints SHA-256. Otherwise states that the file is not authentic
 
     if keyVerifier.verify(h, open(f_name.split('.')[0] + ".sig", "r").read()):
         print "The signature is authentic."
@@ -40,12 +44,12 @@ def hashVerification(pubKey_fname, f_name):
 
 
 def keyReader(privKey_fname, f_name):
-    # Reading PrivateKey to decipher Symmetric key used
+    # Reading private key to decipher symmetric key used
 
     keyPair = RSA.importKey(open(privKey_fname, "r").read())
     keyDecipher = PKCS1_OAEP.new(keyPair)
 
-    # Reading iv (initializing vector) used to encrypt and saving Symmetric key used to 'k'
+    # Reading iv and symmetric key used during encryption
 
     f = open(f_name.split('.')[0] + ".key", "r")
     iv = f.read(16)
@@ -55,7 +59,7 @@ def keyReader(privKey_fname, f_name):
 
 
 def decipher(keyA_fname, keyB_fname, f_name):
-    # Getting Symmetric key used and iv value generated at encryption process
+    # Getting symmetric key used and iv value generated at encryption process
 
     k, iv = keyReader(keyB_fname, f_name)
 
@@ -69,7 +73,7 @@ def decipher(keyA_fname, keyB_fname, f_name):
 
     # Running a Signature verification
 
-    hashVerification(keyA_fname, f_name.split('.')[0])
+    sigVerification(keyA_fname, f_name.split('.')[0])
 
 
 def auxFilesUnzip(all):
@@ -90,12 +94,28 @@ def cleanUp(sig, key, bin, all):
     os.remove(bin)
     os.remove(all)
 
-def checkFiles(f_name, pubKey, priKey, first_run):
-    # Checking for decrypting file's existence and access
 
-    if first_run and (not os.path.isfile(f_name + ".all") or not os.access(f_name + ".all", os.R_OK)):
-        print "Invalid file to decrypt. Aborting..."
-        sys.exit(1)
+def checkFiles(f_name, pubKey, priKey, first_run):
+    # Checking for decrypting file's existence and access, keys, aux and output files
+
+    if first_run:
+        # Checking for decrypting file's existence and access
+
+        if not os.path.isfile(f_name + ".all") or not os.access(f_name + ".all", os.R_OK):
+            print "Invalid file to decrypt. Aborting..."
+            sys.exit(1)
+
+        # Checking for public key's existence and access
+
+        if not os.path.isfile(pubKey) or not os.access(pubKey, os.R_OK):
+            print "Invalid public key file. Aborting..."
+            sys.exit(6)
+
+        # Checking for private key's existence and access
+
+        if not os.path.isfile(priKey) or not os.access(priKey, os.R_OK):
+            print "Invalid private key file. Aborting..."
+            sys.exit(7)
 
     elif not first_run:
         # Checking if all of the necessary files exist and are accessible
@@ -116,18 +136,6 @@ def checkFiles(f_name, pubKey, priKey, first_run):
             print "Can't create output file. Aborting..."
             sys.exit(5)
 
-    # Checking for public key's existence and access
-
-    if not os.path.isfile(pubKey) or not os.access(pubKey, os.R_OK):
-        print "Invalid public key file. Aborting..."
-        sys.exit(6)
-
-    # Checking for private key's existence and access
-
-    if not os.path.isfile(priKey) or not os.access(priKey, os.R_OK):
-        print "Invalid private key file. Aborting..."
-        sys.exit(7)
-
 
 # Gathering encrypting file name
 
@@ -139,7 +147,7 @@ elif len(sys.argv) == 1:
 else:
     f_name = sys.argv[1]
 
-# Gathering keys names
+# Gathering names of keys
 
 if pubKey == "":
     print "Sender's public key file name:"
@@ -147,7 +155,6 @@ if pubKey == "":
 if priKey == "":
     print "Receiver's private key file name:"
     priKey = raw_input(">>> ")
-
 
 f_name = f_name.split('.')[0]
 checkFiles(f_name, pubKey, priKey, True)

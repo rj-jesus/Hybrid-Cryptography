@@ -225,11 +225,23 @@ Neste capítulo irá ser abordada a implementação de dois programas, um com o 
 
 Os programas foram escritos na linguagem de programação \verb|Python (2.7)|, e recorreu-se extensamente à biblioteca \verb|PyCrypto|\footnote{\url{https://www.dlitz.net/software/pycrypto/}} para implementar os processos relacionados com cifragem e decifragem de informação.\\
 
+
+Visto estar a ser utilizado um esquema de encriptação híbrido, o ficheiro principal a transmitir é cifrado recorrendo-se a um algoritmo com chaves partilhadas, neste caso AES. Na utilização deste algoritmo, escolheu-se o modo de operação CFB, que é um método de encriptação contínua auto-sincronizada (self-synchronizing stream encryption), garantindo assim que a geração do criptograma não é feita apenas pela aplicação do operador XOR entre a mensagem e uma chave, mas em que há uma relação de feedback entre o criptograma a ser gerado e o resto do criptograma a gerar (um pouco como cifras por blocos). Isto juntamente com a existência de um valor iv (initialization vector) que serve como fator aleatório extra neste processo de feedback, garante que um mesmo ficheiro mesmo que seja cifrado várias vezes com uma mesma chave dará origem a criptogramas diferentes e portanto é mais dificíl desvendar o que se está a transmitir. Um exemplo da implementação deste algoritmo é visível na figura \ref{fig:crypto6}.
+
+\begin{figure}[ht]
+\center
+\fbox{\includegraphics[height=3cm]{crypto6.png}}
+\caption{Cifragem com AES modo CFB}
+\label{fig:crypto6}
+\end{figure}
+
+No entanto, devido à forma como é processado este aumento de segurança também acarreta um decréscimo na velocidade de cifragem e decifragem. Apesar disso escolheu-se usá-lo já que se o maior fator de interesse nestes programas fosse meramente a velocidade, então não se estaria sequer a seguir um esquema híbrido.\\
+
 Para facilitar certas explicações abaixo, parte-se do princípio de que o indivíduo \textbf{A} quer enviar em ficheiro cifrado a \textbf{B}, que só este último pode decifrar, e em que é possível verificar a autenticidade do ficheiro.
 
 \section{Cifragem}
 
-O programa responsável pela cifragem da mensagem a transmitir é \href{run:../Python/Sender/encipherPy.py}{\textbf{encipherPy.py}}. O código do programa é incluido neste relatório em \ref{encipher.py}.
+O programa responsável pela cifragem da mensagem a transmitir é \href{run:../Python/Sender/encipher.py}{\textbf{encipher.py}}. O código do programa é incluido neste relatório em \ref{encipher.py}.
 Este programa depende de várias funções para sua execução, destancando-se as \verb|sigGenerator|, \verb|keyGenerator| e \verb|encipher|. Outras funções nele presentes estão relacionadas com a robustez do programa e não com a cifragem da mensagem em si, e portanto não irão ser abordadas.\\
 
 O objectivo deste programa é tirar partido da velocidade de algoritmos de cifragem com chaves simétricas, mas manter as funcionalidades e segurança extra que os com chaves assimétricas permitem. Com isso em mente, é gerada uma chave simétrica pelo programa, que é cifrada com a chave pública de \textbf{B} (para que apenas este a possa decifrar), a assinatura do ficheiro é cifrada com a chave privada de \textbf{A} (para que \textbf{B} possa ter certezas sobre a origem do ficheiro e se foi adulterado ou não), e o ficheiro em si é cifrado com a chave simétrica gerada, sendo portanto muito mais rápida a sua cifragem e decifragem.\\
@@ -256,13 +268,13 @@ O recetor da mensagem, indivíduo \textbf{B}, poderá utilizar a sua chave priva
 
 \section{Decifragem}
 
-A decifragem da mensagem cifrada enviada é feita pelo programa \href{../Python/Receiver/decipherPy.py}{\textbf{de\-ci\-pherPy.py}} também disponível em \ref{decipher.py}. Também este recorre essencialmente a três funções para decifrar o ficheiro recebido, possuindo no entanto mais código responsável por aumentar a sua robustez e utilidade. O seu principal ojectivo é ser capaz de decifrar a chave simétrica utilizada inicialmente para cifrar a mensagem (com a chave privada do utilizador do programa decifrador, ou seja, com a chave privada do indivíduo \textbf{B}), e com ela decifrar a mensagem inicial. Posto isto, é corrida uma função de verificação que visa garantir não só a integridade do ficheiro como também a sua autenticidade. Para isto, o ficheiro onde foi guardada a assinatura do ficheiro original é decifrado com a chave pública de \textbf{A} (quem envia a mensagem), sendo depois analizada a integridade do ficheiro comparando a sua síntese \verb|SHA-256| com a originalmente guardada. De seguida irão ser analizadas em maior detalhe cada uma das funções relacionadas com a decifragem do ficheiro.
+A decifragem da mensagem cifrada enviada é feita pelo programa \href{../Python/Receiver/decipher.py}{\textbf{de\-ci\-pher.py}} também disponível em \ref{decipher.py}. Também este recorre essencialmente a três funções para decifrar o ficheiro recebido, possuindo no entanto mais código responsável por aumentar a sua robustez e utilidade. O seu principal ojectivo é ser capaz de decifrar a chave simétrica utilizada inicialmente para cifrar a mensagem (com a chave privada do utilizador do programa decifrador, ou seja, com a chave privada do indivíduo \textbf{B}), e com ela decifrar a mensagem inicial. Posto isto, é corrida uma função de verificação que visa garantir não só a integridade do ficheiro como também a sua autenticidade. Para isto, o ficheiro onde foi guardada a assinatura do ficheiro original é decifrado com a chave pública de \textbf{A} (quem envia a mensagem), sendo depois analizada a integridade do ficheiro comparando a sua síntese \verb|SHA-256| com a originalmente guardada. De seguida irão ser analizadas em maior detalhe cada uma das funções relacionadas com a decifragem do ficheiro.
 
-\subsection{hashVerification}
+\subsection{sigVerification}
 
 Esta é a função encarregue de verificar a autenticidade e integridade do ficheiro recebido. É de notar que mesmo que a verificação falhe a decifragem prossegue.\\
 
-Para garantir a autenticidade e integridade do ficheiro, quando este foi cifrado foi gerada uma sua assinatura, guardada num ficheiro auxiliar \verb|*.sig|. Desta forma, é agora possível ao utilizador \textbf{B}, por meio do programa \verb|decipherPy.py|, inferir sobre a origem da mensagem recebida bem como se foi ou não adulterada. Para isto, recorre-se novamente ao módulo \verb|PKCS1_v1_5|, em especial à sua função \verb|RSASSA-PKCS1-V1_5-VERIFY|\footnote{\url{http://goo.gl/OPdiHU}} que permite, tal como o nome indica, correr as verificações pretendidas.\\
+Para garantir a autenticidade e integridade do ficheiro, quando este foi cifrado foi gerada uma sua assinatura, guardada num ficheiro auxiliar \verb|*.sig|. Desta forma, é agora possível ao utilizador \textbf{B}, por meio do programa \verb|decipher.py|, inferir sobre a origem da mensagem recebida bem como se foi ou não adulterada. Para isto, recorre-se novamente ao módulo \verb|PKCS1_v1_5|, em especial à sua função \verb|RSASSA-PKCS1-V1_5-VERIFY|\footnote{\url{http://goo.gl/OPdiHU}} que permite, tal como o nome indica, correr as verificações pretendidas.\\
 
 Caso a verificação seja concluida com sucesso será imprimida uma mensagem para o terminal de forma a indicar isso mesmo, acompanhada da síntese \verb|SHA-256| do ficheiro. Caso contrário, apenas surgirá uma mensagem indicando que a verificação falhou.
 
@@ -272,7 +284,7 @@ Esta função é a que permite a obtenção da chave (de 32 bytes) usada aquando
 
 \subsection{decipher}
 
-Esta é a função que permite a verdadeira decifragem do ficheiro (no entanto pelo menos a função \verb|keyReader| é também essencial para que esta decifragem seja possível). Esta decifragem é feita de modo inverso à cifragem feita pela função homóloga \verb|encipher| (do programa de cifragem), e, sendo assim, recorre-se também ao algoritmo AES, modo CFB, com o mesmo valor iv para decifragem do ficheiro. A chave utilizada nesta decifragem é também a mesma para a cifragem (já que estamos perante um algoritmo de cifragem com chaves simétricas), e obtida recorrendo-se à função \verb|keyReader|. No final da decifragem, é levada a cabo a verificação do ficheiro final através da função \verb|hashVerification|.\\
+Esta é a função que permite a verdadeira decifragem do ficheiro (no entanto pelo menos a função \verb|keyReader| é também essencial para que esta decifragem seja possível). Esta decifragem é feita de modo inverso à cifragem feita pela função homóloga \verb|encipher| (do programa de cifragem), e, sendo assim, recorre-se também ao algoritmo AES, modo CFB, com o mesmo valor iv para decifragem do ficheiro. A chave utilizada nesta decifragem é também a mesma para a cifragem (já que estamos perante um algoritmo de cifragem com chaves simétricas), e obtida recorrendo-se à função \verb|keyReader|. No final da decifragem, é levada a cabo a verificação do ficheiro final através da função \verb|sigVerification|.\\
 
 No final, o ficheiro decifrado é guardado num ficheiro com o mesmo nome que o indicado para decifragem, sem extensão.
 
@@ -287,7 +299,7 @@ Assim sendo, pudemos verificar que nem métodos simétricos nem assimétricos s�
 %\appendix
 
 \begin{appendices}
-\section{encipherPy.py}
+\section{encipher.py}
 \label{encipher.py}
 
 \begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{python}
@@ -311,7 +323,7 @@ pubKey = "B_PublicKey.pem"
 f_name = ""
 
 def usage():
-    print "python encipherPy.py <File_Name>"
+    print "python encipher.py <File_Name>"
 
 
 def sigGenerator(priKey_fname, f_name):
@@ -484,7 +496,7 @@ auxFilesZip(f_name.split('.')[0] + ".sig", f_name.split('.')[0] + ".key", f_name
 \end{minted}
 
 \newpage
-\section{decipherPy.py}
+\section{decipher.py}
 \label{decipher.py}
 
 \begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{python}
@@ -506,7 +518,7 @@ priKey = "B_PrivateKey.pem"
 f_name = ""
 
 def usage():
-    print "python decipherPy.py <File_Name>"
+    print "python decipher.py <File_Name>"
 
 
 def hashVerification(pubKey_fname, f_name):

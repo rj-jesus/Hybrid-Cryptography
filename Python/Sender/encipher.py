@@ -21,7 +21,7 @@ f_name = ""
 
 
 def usage():
-    print "python encipherPy.py <File_Name>"
+    print "python encipher.py <file_name>"
     sys.exit(-1)
 
 
@@ -80,7 +80,7 @@ def encipher(keyA_fname, keyB_fname, f_name):
 
     sigGenerator(keyA_fname, f_name)
 
-    # Generating initializing vector for AES Encryption (different AES modes rose problems)
+    # Generating initializing vector for AES Encryption
 
     iv = Random.new().read(AES.block_size)
 

@@ -59,11 +59,11 @@ Com o objetivo de implementar dois programas, um que cifre e outro que decifre u
 \chapter{Introdução}
 \label{chap.introdução}
 
-Cada vez mais a criptografia desempenha um processo fundamental na sociedade atual. Veja-se como a decifragem de "Enigma"\footnote{\url{http://en.wikipedia.org/wiki/Enigma_machine}} teve uma enorme importância no desenrolar da Segunda Guerra Mundial, ou como o recente ataque à 'Sony Pictures Entertainment' fez os Estados Unidos da América temer pela sua cibersegurança.\\
+Cada vez mais a criptografia desempenha um processo fundamental na sociedade atual. Veja-se como a decifragem de 'Enigma'\footnote{\url{http://en.wikipedia.org/wiki/Enigma_machine}} teve uma tão grande importância no desenrolar da Segunda Guerra Mundial, ou como o recente ataque à 'Sony Pictures Entertainment' fez os Estados Unidos da América temer pela sua cibersegurança.
 
-Assim, e visto que a cada dia que passa estamos mais ligados uns aos outros através, por exemplo, da Web, é cada vez mais necessário manter a confidencialidade na partilha de informação, onde algoritmos de cifragem e decifragem desempenham um processo crucial. No entanto, nos dias que correm temos à nossa disposição inúmeros algoritmos deste tipo, de onde se destacam os algoritmos simétricos e assimétricos.\\
+Assim, e visto que a cada dia que passa estamos mais ligados uns aos outros através, por exemplo, da Web, é cada vez mais necessário manter a confidencialidade na partilha de informação, onde algoritmos de cifragem e decifragem desempenham um processo crucial. Felizmente, nos dias que correm temos à nossa disposição inúmeros algoritmos deste tipo, de onde se destacam os algoritmos simétricos e assimétricos.\\
 
-Em relação aos algoritmos simétricos, destaca-se a velocidade com que determinada informação pode ser cifrada e decifrada. Nestes algoritmos é utilizada uma chave partilhada entre emissor e recetor para transmitir informação de uma forma confidencial. Já em relação a algoritmos assimétricos, estes são centenas senão milhares de vezes mais lentos que os métodos simétricos, no entanto visto utilizarem um par de chaves de forma a garantir transmissão de informação de uma forma segura, onde existe uma chave pública partilhada com os demais e uma privada a que apenas o próprio indivíduo deve ter acesso, este método garante, por exemplo, que um ficheiro cifrado com a chave pública de um indivíduo \textbf{A} pode apenas ser decifrado pelo próprio \textbf{A} com a sua chave privada (note-se que a informação cifrada com uma chave pública só pode ser decifrada pela respetiva chave privada, ou vice-versa). Para além disso, estes métodos por pares de chaves são considerados mais seguros e permitem também garantir questões de autenticidade.\\
+Em relação aos algoritmos simétricos, destaca-se a velocidade com que determinada informação pode ser cifrada e decifrada. Nestes algoritmos é utilizada uma chave partilhada entre emissor e recetor para transmitir informação de uma forma confidencial. Já em relação a algoritmos assimétricos, estes são centenas senão milhares de vezes mais lentos que os métodos simétricos, no entanto visto utilizarem pares de chaves de forma a garantir transmissão de informação de uma forma segura, onde existe uma chave pública partilhada com os demais e uma privada a que apenas o próprio indivíduo deve ter acesso, este método garante, por exemplo, que um ficheiro cifrado com a chave pública de um indivíduo \textbf{A} pode apenas ser decifrado pelo próprio \textbf{A} com a sua chave privada (note-se que a informação cifrada com uma chave pública só pode ser decifrada pela respetiva chave privada, ou vice-versa). Para além disso, estes métodos por pares de chaves são considerados mais seguros e permitem também dar resposta a questões de autenticidade.\\
 
 Com base nestas vantagens e desvantagens de um e outro métodos, surgiram esquemas de encriptação híbrida que procuram tirar partido das vantagens de ambos os métodos (velocidade da encriptação simétrica e segurança da encriptação assimétrica).
 
@@ -77,7 +77,7 @@ Com isto em mente foram implementados dois programas escritos em linguagem Pytho
 A criptografia é a arte ou ciência de escrever uma mensagem de forma a ocultar o seu conteúdo. Dito por outras palavras, a criptografia usa técnicas que permitem que várias entidades possam transmitir mensagens de forma segura e privada, sem que estas sejam intercetadas e aproveitadas por terceiros. Independentemente do método que for usado para ocultar dados, a criptografia moderna pretende satisfazer quatro objetivos fundamentais:
 
 \begin{description}
-\item[Confidencialidade:] caso alguém intercetar a mensagem, essa pessoa não deve ser capaz de ler e perceber o seu conteúdo.
+\item[Confidencialidade:] caso alguém intercete uma mensagem, essa pessoa não deve ser capaz de ler e perceber o seu conteúdo.
 \item[Integridade dos dados:] o destinatário da mensagem deve ser capaz de verificar se a mensagem foi alterada durante a transmissão, acidental ou deliberadamente.
 \item[Autenticação:] o destinatário da mensagem deve ser capaz de verificar a sua origem.
 \item[Não-repúdio:] o remetente não deve ser capaz de negar mais tarde que foi quem realmente enviou a mensagem para o destinatário.
@@ -110,14 +110,14 @@ Uma das situações onde se podem encontrar as funções de síntese é nas assi
 \label{fig:crypto5}
 \end{figure}
 
-O remetente da mensagem cria uma assinatura digital aplicando uma função de síntese (\textit{Hash function}) no documento (\textit{Data}), produzindo-se um ficheiro sintetizado (\textit{Hash}). Este ficheiro é cifrado usando a chave privada do emissor de forma a produzir uma assinatura digital que é depois anexada ao documento (\textit{Digitally signed data}). Após a receção do documento assinado, o destinatário decifra a assinatura através da chave pública do assinante e executa uma síntese ao próprio ficheiro. São produzidos dois valores "hash" e ambos comparados, i.e., se forem iguais a assinatura é considerada válida.\\
+O remetente da mensagem cria uma assinatura digital aplicando uma função de síntese (\textit{Hash function}) no documento (\textit{Data}), produzindo-se um ficheiro sintetizado (\textit{Hash}). Este ficheiro é cifrado usando a chave privada do emissor de forma a produzir uma assinatura digital que é depois anexada ao documento (\textit{Digitally signed data}). Após a receção do documento assinado, o destinatário decifra a assinatura através da chave pública do assinante e executa uma síntese ao próprio ficheiro. São produzidos dois valores 'hash' e ambos comparados, i.e., se forem iguais a assinatura é considerada válida.\\
 
-De referir que no contexto das assinaturas digitais é aplicado um dos objetivos da criptografia moderna: o não-repúdio. Ou seja, o remetente não deverá ser capaz de negar mais tarde que foi realmente a pessoa que enviou a mensagem.
+De referir que no contexto das assinaturas digitais são aplicados dois objetivos da criptografia moderna: o do não-repúdio e garatia de integridade de dados. Ou seja, o remetente não deverá ser capaz de negar mais tarde que foi realmente a pessoa que enviou a mensagem, e o recetor deverá ser capaz de verificar, para além da origem da mesma, que esta se encontra no mesmo estado em que foi enviada.
 
 \section{Criptografia Simétrica}
 \label{chalp.simétrica}
 
-A cifra simétrica é a forma mais básica de criptografia na qual é partilhada uma chave entre o emissor e o recetor da mensagem, geralmente designada por chave simétrica, e usada por ambos para cifrar e decifrar mensagens. Além de possuírem a mesma chave, os intervenientes também devem possuir o mesmo algoritmo, neste caso designado por algoritmo simétrico. A figura \ref{fig:crypto1} ilustra de forma simples o uso de chave partilhada na criptografia simétrica.
+A cifra simétrica é a forma mais básica de criptografia na qual é partilhada uma chave entre o emissor e o recetor da mensagem, geralmente designada por chave simétrica, e usada por ambos para cifrar e decifrar mensagens. Além de possuírem a mesma chave, os intervenientes também devem possuir o mesmo algoritmo, neste caso designado por algoritmo simétrico. A figura \ref{fig:crypto1} ilustra de forma simples o uso de chaves partilhadas na criptografia simétrica.
 
 \begin{figure}[ht]
 \center
@@ -128,13 +128,13 @@ A cifra simétrica é a forma mais básica de criptografia na qual é partilhada
 
 O remetente (\textit{sender}) cifra o texto em claro (\textit{plaintext}) através da chave simétrica (\textit{secret-key}), produzindo-se um texto cifrado (\textit{ciphertext}). O destinatário (\textit{recipient}) da mensagem decifra-a usando a chave partilhada por ambos. O processo contrário também se pode realizar, ou seja, a chave tanto pode servir para cifrar como para decifrar mensagens.\\
 
-A criptografia simétrica divide-se em dois tipos de cifras: a contínua e por blocos.
+A criptografia simétrica divide-se em dois tipos de cifras: a contínua e a por blocos.
 
 \subsection{Cifras Simétricas Contínuas}
 
 Na cifra contínua, a mensagem em claro é tratada como uma sequência de bytes (ou bits) onde cada sequência é cifrada sequencialmente. Usa uma operação relativamente simples para misturar a mensagem original com uma chave contínua pseudo-aleatória de dimensão finita também designada por \textit{keystream}. Esta operação é tipicamente a função XOR (Exclusive-OR)\footnote{\url{http://en.wikipedia.org/wiki/Exclusive_or}} visto que é uma função facilmente invertível.\\
 
-A operação de cifra consiste em aplicar a função XOR para cada sequência de bytes do texto em claro juntamente com a correspondente sequência de bytes da chave contínua (as sequências também podem ser de 1 bit). A expressão \ref{eq1} mostra como é feita a operação de cifra.
+A operação de cifra consiste em aplicar a função XOR entre a mensagem a transmitir e a chave utilizada na operação. A expressão \ref{eq1} mostra como é feita a operação de cifra.
 
 \begin{equation}
 \label{eq1}
@@ -156,9 +156,9 @@ De referir que é usada a mesma chave nas duas equações (\ref{eq1} e \ref{eq2}
 
 \subsection{Cifras Simétricas por Blocos}
 
-Na cifra por blocos, a mensagem é dividida em blocos de igual dimensão sendo cada um deles processados de forma independente dos restantes. Conforme o algoritmo aplicado para cifrar e decifrar mensagens, os blocos podem ter dimensões diferentes. Por exemplo, o DES (\textit{Data Encryption Standard}) e o AES (\textit{Data Encryption Standard}) são dois algoritmos bastante usados neste tipo de cifra, mas, quer um quer outro usam blocos de tamanhos distintos, 64 e 128 bits respetivamente. O criptograma é criado após a criação de vários pequenos criptogramas representando cada um dos blocos cifrados.\\
+Na cifra por blocos, a mensagem é dividida em blocos de igual dimensão sendo cada um deles processados de forma independente dos restantes (se bem que podem existir mecanismos de feedback). Conforme o algoritmo aplicado para cifrar e decifrar mensagens, os blocos podem ter dimensões diferentes. Por exemplo, o DES (\textit{Data Encryption Standard}) e o AES (\textit{Data Encryption Standard}) são dois algoritmos bastante usados neste tipo de cifra, mas em que ambos utilizam blocos de tamanhos distintos, 64 e 128 bits respetivamente. O criptograma é criado após a criação de vários pequenos criptogramas representando cada um dos blocos cifrados.\\
 
-Um conceito bastante importante neste tipo de cifra é o alinhamento, ou \textit{padding}. Existem modos de cifra por blocos que põem particularmente em prática este conceito. Um deles é o ECB (\textit{Electronic Code Book}), onde possibilita a separação de ficheiros em blocos de dimensões iguais. Por exemplo, se um determinado ficheiro for separado em blocos e verificar-se que o último não tem uma dimensão igual à dos restantes, é adicionado uma “string” de bytes (ou bits) no final desse bloco de forma a obter o tamanho pretendido. A esse acréscimo de bits forma-se um excipiente, sendo importante indicar a sua existência e comprimento de forma a facilitar a decifra por parte de quem recebe a mensagem cifrada. A figura \ref{fig:crypto2} ilustra muito basicamente os processos de cifragem nas cifras contínuas e por blocos.
+Um conceito bastante importante neste tipo de cifra é o alinhamento, ou \textit{padding}. Existem modos de cifra por blocos que põem particularmente em prática este conceito. Um deles é o ECB (\textit{Electronic Code Book}), que possibilita a separação de ficheiros em blocos de dimensões iguais. Por exemplo, se um determinado ficheiro for separado em blocos e verificar-se que o último não tem uma dimensão igual à dos restantes, é adicionado uma “string” de bytes (ou bits) no final desse bloco de forma a obter o tamanho pretendido. Esse acréscimo de bits forma um excipiente, sendo importante indicar a sua existência e comprimento de forma a facilitar a decifra por parte de quem recebe a mensagem cifrada. A figura \ref{fig:crypto2} ilustra muito basicamente os processos de cifragem nas cifras contínuas e por blocos.
 
 \begin{figure}[ht]
 \center
@@ -167,14 +167,14 @@ Um conceito bastante importante neste tipo de cifra é o alinhamento, ou \textit
 \label{fig:crypto2}
 \end{figure}
 
-Na cifra por blocos, o texto em claro é "partido" em blocos de dimensões iguais (P1, P2, …, Pn) sendo cada um deles cifrados de forma independente dos restantes, obtendo-se vários criptogramas (C1, C2, …, Cn) que todos juntos formam o criptograma principal. Na cifra contínua, é gerada uma chave contínua e combinando-a com o texto em claro com a função XOR gera o criptograma (C).
+Na cifra por blocos, o texto em claro é 'partido' em blocos de dimensões iguais (P1, P2, …, Pn) sendo cada um deles cifrados de forma independente dos restantes, obtendo-se vários criptogramas (C1, C2, …, Cn) que todos juntos formam o criptograma principal. Na cifra contínua, é gerada uma chave contínua e combinando-a com o texto em claro com a função XOR gera-se o criptograma (C).
 
 \section{Criptografia Assimétrica}
 \label{chap.assimétrica}
 
-A criptografia assimétrica é uma área da criptografia onde cada um dos interlocutores possui um par de chaves, uma privada (ou secreta) e outra pública. A chave pública é usada principalmente para cifrar mensagens ou para verificar assinaturas digitais. O termo \textbf{assimétrico} vem do facto de se usar duas chaves, mas ambas com funções opostas. A criptografia assimétrica usa cifras por blocos e pode assegurar a confidencialidade e a autenticação nas mensagens transmitidas dependendo de como se usam as chaves.\\
+A criptografia assimétrica é uma área da criptografia onde cada um dos interlocutores possui um par de chaves, uma privada (ou secreta) e outra pública. A chave pública é usada principalmente para cifrar mensagens ou para verificar assinaturas digitais. O termo \textbf{assimétrico} vem do facto de se usarem duas chaves, mas ambas com funções opostas. A criptografia assimétrica usa cifras por blocos e pode assegurar a confidencialidade e a autenticação nas mensagens transmitidas dependendo de como se usam as chaves.\\
 
-Se se pretender comunicar confidencialmente, a chave pública do destinatário é usada para cifrar e a chave privada do destinatário é usada para decifrar, ou seja só o destinatário conseguirá decifrar o criptograma através da sua chave privada. Por outro lado, o destinatário não tem conhecimento de quem remeteu a mensagem cifrada, e sendo assim a autenticação não pode ser verificada. A figura \ref{fig:crypto3} ilustra o uso correto das chaves assimétricas para garantir a confidencialidade na transmissão das mensagens entre emissor e recetor.
+Se se pretender comunicar confidencialmente, a chave pública do destinatário é usada para cifrar e a chave privada do destinatário é usada para decifrar, ou seja só o destinatário conseguirá decifrar o criptograma através da sua chave privada. Por outro lado, o destinatário não tem conhecimento de quem remeteu a mensagem cifrada (pelo menos isso não pode ser garantido), e sendo assim a autenticação não pode ser verificada. A figura \ref{fig:crypto3} ilustra o uso correto das chaves assimétricas para garantir a confidencialidade na transmissão das mensagens entre emissor e recetor.
 
 \begin{figure}[ht]
 \center
@@ -194,7 +194,9 @@ Por outro lado, se o remetente pretender garantir a autenticação da origem da 
 \label{fig:crypto4}
 \end{figure}
 
-O emissor (\textit{Alice}) cifra a mensagem através de um algoritmo assimétrico e da sua chave privada (\textit{Alice’s Private Key}) e envia para o destinatário (\textit{Bob}) o criptograma gerado. Este, por sua vez, decifra-o através da chave pública do emissor (\textit{Alice’s Public Key}) verificando a autenticação do autor. Neste caso, só se usa o par de chaves do lado do emissor.
+O emissor (\textit{Alice}) cifra a mensagem através de um algoritmo assimétrico e da sua chave privada (\textit{Alice’s Private Key}) e envia para o destinatário (\textit{Bob}) o criptograma gerado. Este, por sua vez, decifra-o através da chave pública do emissor (\textit{Alice’s Public Key}) verificando a autenticação do autor. Neste caso, só se usa o par de chaves do lado do emissor.\\
+
+Um dos algoritmos mais utilizados neste método é o RSA\footnote{\url{http://en.wikipedia.org/wiki/RSA_(cryptosystem)}} que tira partido de certas propriedades de números primos e da dificuldade e exigência de recursos necessários para factorizar grandes inteiros.
 
 \section{Criptografia Híbrida}
 \label{chap.híbrida}
@@ -208,7 +210,7 @@ Veja-se um simples exemplo de utilização, em que um certo indivíduo \textbf{A
 \item Gera-se uma chave simétrica aleatória.
 \item Cifra-se a mensagem segundo um algoritmo de cifragem simétrica como AES.
 \item A chave simétrica utilizada é cifrada segundo um algoritmo assimétrico (utilizando a chave pública de \textbf{B})
-\item Ambas a mensagem e a chave cifradas são enviados a \textbf{B}.
+\item Ambas a mensagem e a chave cifradas são enviadas a \textbf{B}.
 \end{enumerate}
 
 O que \textbf{B} terá de fazer quando receber os ficheiros, de forma a decifrar a mensagem, deverá ser algo como:
@@ -221,12 +223,12 @@ O que \textbf{B} terá de fazer quando receber os ficheiros, de forma a decifrar
 \chapter{Implementação de Programas}
 \label{chap.programas}
 
-Neste capítulo irá ser abordada a implementação de dois programas, um com o objetivo de cifrar e o outro de decifrar uma certa mensagem. Ambos utilizam um esquema híbrido (\ref{chap.híbrida}), portanto fornecendo confidencialidade e autenticidade mas permitindo uma rápida cifragem e decifragem da mensagem a ser enviada. Os pares de chaves assimétricas utilizados nos testes destes programas foram gerados utilizando o programa \href{run:../Python/KeysGenerator/generateKeys.py}{\textbf{generateKeys.py}}. O código de ambos os programas para além de ser enviado em anexo é também disponibilizado em anexo no final deste relatório para facilitar o confronto do código exposto face à análise levada a cabo sobre ele em cada uma das secções seguintes, secções onde se procura explicar como se resolveu o problema inicialmente exposto.
+Neste capítulo irá ser abordada a implementação de dois programas, um com o objetivo de cifrar e o outro de decifrar uma certa mensagem. Ambos utilizam um esquema híbrido (\ref{chap.híbrida}), portanto fornecendo confidencialidade e autenticidade mas permitindo uma rápida cifragem e decifragem da mensagem a ser enviada. Os pares de chaves assimétricas utilizados nos testes destes programas foram gerados utilizando o programa \href{run:../Python/KeysGenerator/generateKeys.py}{\textbf{generateKeys.py}}. O código de ambos os programas para além de ser enviado em anexo é também disponibilizado (em anexo) no final deste relatório para facilitar o confronto do código face à análise levada a cabo sobre ele em cada uma das secções seguintes, secções onde se procura explicar como se resolveu o problema inicialmente exposto.
 
 Os programas foram escritos na linguagem de programação \verb|Python (2.7)|, e recorreu-se extensamente à biblioteca \verb|PyCrypto|\footnote{\url{https://www.dlitz.net/software/pycrypto/}} para implementar os processos relacionados com cifragem e decifragem de informação.\\
 
 
-Visto estar a ser utilizado um esquema de encriptação híbrida, o ficheiro principal a transmitir é cifrado recorrendo-se a um algoritmo com chaves partilhadas, neste caso AES. Na utilização deste algoritmo, escolheu-se o modo de operação CFB, que é um método de encriptação contínua auto-sincronizada (\textit{self-synchronizing stream encryption}), garantindo assim que a geração do criptograma não é feita apenas pela aplicação do operador XOR entre a mensagem e uma chave, mas em que há uma relação de feedback entre o criptograma a ser gerado e o resto do criptograma a gerar (um pouco como cifras por blocos). Isto juntamente com a existência de um valor iv (\textit{initialization vector}) que serve como fator aleatório extra neste processo de feedback, garante que um mesmo ficheiro que seja cifrado várias vezes com uma mesma chave dará sempre origem a criptogramas diferentes e portanto é mais difícil desvendar o que se está a transmitir. Um exemplo da implementação deste algoritmo é visível na figura \ref{fig:crypto6}.
+Visto estar a ser utilizado um esquema de encriptação híbrida, o ficheiro principal a transmitir é cifrado recorrendo-se a um algoritmo com chaves partilhadas, neste caso AES. Na utilização deste algoritmo, escolheu-se o modo de operação CFB, que é um método de encriptação contínua auto-sincronizada (\textit{self-synchronizing stream encryption}), garantindo assim que a geração do criptograma não é feita apenas pela aplicação do operador XOR entre a mensagem e uma chave, mas em que há uma relação de feedback entre o criptograma a ser gerado e o resto do criptograma a gerar (um pouco como cifras por blocos). Isto juntamente com a existência de um valor 	\verb|iv| (\textit{initialization vector}) que serve como fator aleatório extra neste processo de feedback, garante que um mesmo ficheiro que seja cifrado várias vezes com uma mesma chave dará origem a criptogramas diferentes e portanto é mais difícil desvendar o que se está a transmitir. Um exemplo da implementação deste algoritmo é visível nas figuras \ref{fig:crypto6} e \ref{fig:crypto7}.
 
 \begin{figure}[ht]
 \center
@@ -235,13 +237,20 @@ Visto estar a ser utilizado um esquema de encriptação híbrida, o ficheiro pri
 \label{fig:crypto6}
 \end{figure}
 
+\begin{figure}[ht]
+\center
+\fbox{\includegraphics[height=3cm]{crypto7.png}}
+\caption{Decifragem com AES modo CFB}
+\label{fig:crypto7}
+\end{figure}
+
 No entanto, devido à forma como é processado este aumento de segurança também acarreta um decréscimo na velocidade de cifragem e decifragem. Apesar disso escolheu-se usá-lo já que se o maior fator de interesse nestes programas fosse meramente a velocidade, então não se estaria sequer a seguir um esquema híbrido.\\
 
 Para facilitar certas explicações abaixo, parte-se do princípio de que o indivíduo \textbf{A} quer enviar um ficheiro cifrado a \textbf{B}, que só este último pode decifrar, e em que é possível verificar a autenticidade do ficheiro.
 
 \section{Cifragem}
 
-O programa responsável pela cifragem da mensagem a transmitir é \href{run:../Python/Sender/encipher.py}{\textbf{encipher.py}}. O código do programa é incluido neste relatório em \ref{encipher.py}.
+O programa responsável pela cifragem da mensagem a transmitir é \href{run:../Python/Sender/encipher.py}{\textbf{encipher.py}}. O código do programa é incluido neste relatório em \ref{App:encipher.py}.
 Este programa depende de várias funções para sua execução, destancando-se as \verb|sigGenerator|, \verb|keyGenerator| e \verb|encipher|. Outras funções nele presentes estão relacionadas com a robustez do programa e não com a cifragem da mensagem em si, e portanto não irão ser abordadas.\\
 
 O objectivo deste programa é tirar partido da velocidade de algoritmos de cifragem com chaves simétricas, mas manter as funcionalidades e segurança extra que os com chaves assimétricas permitem. Com isso em mente, é gerada uma chave simétrica pelo programa, que é cifrada com a chave pública de \textbf{B} (para que apenas este a possa decifrar), a assinatura do ficheiro é cifrada com a chave privada de \textbf{A} (para que \textbf{B} possa ter certezas sobre a origem do ficheiro e se foi adulterado ou não), e o ficheiro em si é cifrado com a chave simétrica gerada, sendo portanto muito mais rápida a sua cifragem e decifragem.\\
@@ -258,7 +267,7 @@ Para isto recorre-se a uma função de síntese, \verb|SHA-256|\footnote{\url{ht
 
 Esta função tem como objectivo gerar e guardar a chave simétrica usada pelo programa, cifrando-a com a chave pública de \textbf{B} (de forma a que apenas este a possa decifrar). Para isso, inicialmente gera-se uma sequência aleatória de 1024 bits. Visto que o método de encriptação AES necessita de chaves com 16, 24 ou 32 bytes, é calculada a síntese \verb|SHA-256| do código aleatório gerado de forma a garantir que a chave final é de 256 bits (ou seja, 32 bytes). De seguida esta chave é cifrada com a chave pública de \textbf{B} recorrendo-se ao módulo \verb|PKCS1_OAEP|\footnote{\url{https://www.dlitz.net/software/pycrypto/api/current/toc-Crypto.Cipher.PKCS1_OAEP-module.html}}, garantindo-se assim que apenas \textbf{B} pode decifrar esta chave (com a sua chave privada), obtendo a chave necessária à decifragem da mensagem enviada. O resultado é depois guardado num ficheiro \verb|*.key|, onde mais uma vez \verb|*| simboliza o nome do ficheiro a cifrar sem extensão.\\
 
-Para além da chave cifrada, é também guardado um código iv (\textit{initialization vector}) necessário à correta descodificação da mensagem. Este código é gerado na função \verb|encipher|, sendo que a função \verb|keyGenerator| apenas o guarda no mesmo ficheiro onde a chave é guardada. Este código é necessário em resultado da utilização do modo de encriptação de AES CFB\footnote{\url{http://goo.gl/RxmaQC}}.
+Para além da chave cifrada, é também guardado um código \verb|iv| (\textit{initialization vector}) necessário à correta descodificação da mensagem. Este código é gerado na função \verb|encipher|, sendo que a função \verb|keyGenerator| apenas o guarda no mesmo ficheiro onde a chave é guardada. Este código é necessário em resultado da utilização do modo de encriptação de AES CFB\footnote{\url{http://goo.gl/RxmaQC}}.
 
 \subsection{encipher}
 
@@ -268,7 +277,7 @@ O recetor da mensagem, indivíduo \textbf{B}, poderá utilizar a sua chave priva
 
 \section{Decifragem}
 
-A decifragem da mensagem cifrada enviada é feita pelo programa \href{../Python/Receiver/decipher.py}{\textbf{de\-ci\-pher.py}} também disponível em \ref{decipher.py}. Também este recorre essencialmente a três funções para decifrar o ficheiro recebido, possuindo no entanto mais código responsável por aumentar a sua robustez e utilidade. O seu principal ojectivo é ser capaz de decifrar a chave simétrica utilizada inicialmente para cifrar a mensagem (com a chave privada do utilizador do programa decifrador, ou seja, com a chave privada do indivíduo \textbf{B}), e com ela decifrar a mensagem inicial. Posto isto, é corrida uma função de verificação que visa garantir não só a integridade do ficheiro como também a sua autenticidade. Para isto, o ficheiro onde foi guardada a assinatura do ficheiro original é decifrado com a chave pública de \textbf{A} (quem envia a mensagem), sendo depois analisada a integridade do ficheiro comparando a sua síntese \verb|SHA-256| com a originalmente guardada. De seguida irão ser analisadas em maior detalhe cada uma das funções relacionadas com a decifragem do ficheiro.
+A decifragem da mensagem cifrada enviada é feita pelo programa \href{../Python/Receiver/decipher.py}{\textbf{de\-ci\-pher.py}} também disponível em \ref{App:decipher.py}. Também este recorre essencialmente a três funções para decifrar o ficheiro recebido, possuindo no entanto mais código responsável por aumentar a sua robustez e utilidade. O seu principal ojectivo é ser capaz de decifrar a chave simétrica utilizada inicialmente para cifrar a mensagem (com a chave privada do utilizador do programa decifrador, ou seja, com a chave privada do indivíduo \textbf{B}), e com ela decifrar a mensagem inicial. Posto isto, é corrida uma função de verificação que visa garantir não só a integridade do ficheiro como também a sua autenticidade. Para isto, o ficheiro onde foi guardada a assinatura do ficheiro original é decifrado com a chave pública de \textbf{A} (quem envia a mensagem), sendo depois analisada a integridade do ficheiro comparando a sua síntese \verb|SHA-256| com a originalmente guardada. De seguida irão ser analisadas em maior detalhe cada uma das funções relacionadas com a decifragem do ficheiro.
 
 \subsection{sigVerification}
 
@@ -280,18 +289,18 @@ Caso a verificação seja concluída com sucesso será imprimida uma mensagem pa
 
 \subsection{keyReader}
 
-Esta função é a que permite a obtenção da chave (de 32 bytes) usada aquando da cifragem simétrica, bem como do código iv (de 16 bytes) utilizado no mesmo processo. Ambas as chaves encontram-se guardadas no ficheiro \verb|*.key|, sendo que a chave de 32 bytes está cifrada com a chave pública do recetor (utilizador \textbf{B}) enquanto que o código de 16 bytes não. De forma a obter ambas estas chaves, o programa lê os primeiros 16 bytes do ficheiro \verb|*.key|, onde o código iv foi guardado, procedendo-se depois à leitura do resto do ficheiro. Este "resto" é depois decifrado com a chave privada de \textbf{B} (recorrendo a \verb|PKCS1_OAEP|), obtendo-se assim a chave simétrica utilizada para cifragem do ficheiro original.
+Esta função é a que permite a obtenção da chave (de 32 bytes) usada aquando da cifragem simétrica, bem como do código \verb|iv| (de 16 bytes) utilizado no mesmo processo. Ambas as chaves encontram-se guardadas no ficheiro \verb|*.key|, sendo que a chave de 32 bytes está cifrada com a chave pública do recetor (utilizador \textbf{B}) enquanto que o código de 16 bytes não. De forma a obter ambas estas chaves, o programa lê os primeiros 16 bytes do ficheiro \verb|*.key|, onde o código \verb|iv| foi guardado, procedendo-se depois à leitura do resto do ficheiro. Este 'resto' é depois decifrado com a chave privada de \textbf{B} (recorrendo a \verb|PKCS1_OAEP|), obtendo-se assim a chave simétrica utilizada para cifragem do ficheiro original.
 
 \subsection{decipher}
 
-Esta é a função que permite a verdadeira decifragem do ficheiro (no entanto pelo menos a função \verb|keyReader| é também essencial para que esta decifragem seja possível). Esta decifragem é feita de modo inverso à cifragem feita pela função homóloga \verb|encipher| (do programa de cifragem), e, sendo assim, recorre-se também ao algoritmo AES, modo CFB, com o mesmo valor iv para decifragem do ficheiro. A chave utilizada nesta decifragem é também a mesma para a cifragem (já que estamos perante um algoritmo de cifragem com chaves simétricas), e obtida recorrendo-se à função \verb|keyReader|. No final da decifragem, é levada a cabo a verificação do ficheiro final através da função \verb|sigVerification|.\\
+Esta é a função que permite a verdadeira decifragem do ficheiro (no entanto pelo menos a função \verb|keyReader| é também essencial para que esta decifragem seja possível). Esta decifragem é feita de modo inverso à cifragem feita pela função homóloga \verb|encipher| (do programa de cifragem), e, sendo assim, recorre-se também ao algoritmo AES, modo CFB, com o mesmo valor \verb|iv| para decifragem do ficheiro. A chave utilizada nesta decifragem é também a mesma para a cifragem (já que estamos perante um algoritmo de cifragem com chaves simétricas), e obtida recorrendo-se à função \verb|keyReader|. No final da decifragem, é levada a cabo a verificação do ficheiro final através da função \verb|sigVerification|.\\
 
 No final, o ficheiro decifrado é guardado num ficheiro com o mesmo nome que o indicado para decifragem, sem extensão.
 
 \chapter{Conclusões}
 \label{chap.conclusões}
 
-Com este trabalho foi possível verificar que ao adotar um esquema híbrido podemos tirar partido da velocidade que um método de encriptação com chaves partilhadas permite, bem como por exemplo da segurança extra e autenticação que o método com pares de chaves oferecem. Posto isto, pudemos implementar dois programas, um que cifra e outro que decifra, que utilizam este mesmo conceito para garantir a transmissão de informação de forma confidencial e de onde se possa inferir sobre a sua autenticidade e integridade. Isto é possível pois recorre-se a um algoritmo simétrico para cifrar (e decifrar) o ficheiro a transmitir (o que poderia não ser viável caso se se recorresse a um método assimétrico visto este ser muito mais lento e enventualmente o ficheiro poder ser de muito grandes dimensões), mas ainda assim sendo a chave simétrica usada neste processo de cifragem ela própria cifrada com a chave pública do receptor (que a decifra com a sua chave privada), e sendo gerada uma assinatura do ficheiro a partir de uma sua síntese e da chave privada do emissor, não se perdem as vantagens de um método de encriptação assimétrica. Isto garante que apenas o recetor será capaz de decifrar a chave que permite decifrar a informação enviada, bem como que este será capaz de verificar o ficheiro recorrendo à sua assinatura, podendo ter certezas sobre a sua origem e se foi ou não adulterado.
+Foi-nos possível verificar que ao adotar um esquema híbrido podemos tirar partido da velocidade que um método de encriptação com chaves partilhadas permite, bem como por exemplo da segurança extra e autenticação que métodos com pares de chaves oferecem. Posto isto, pudemos implementar dois programas, um que cifra e outro que decifra, que utilizam este mesmo conceito para garantir a transmissão de informação de forma confidencial e de onde se possa inferir sobre a sua autenticidade e integridade. Isto é possível pois recorre-se a um algoritmo simétrico para cifrar (e decifrar) o ficheiro a transmitir (o que poderia não ser viável caso se se recorresse a um método assimétrico visto este ser muito mais lento e enventualmente o ficheiro poder ser de muito grandes dimensões), mas ainda assim sendo a chave simétrica usada neste processo de cifragem ela própria cifrada com a chave pública do receptor (que a decifra com a sua chave privada), e sendo gerada uma assinatura do ficheiro a partir de uma sua síntese e da chave privada do emissor, não se perdem as vantagens de um método de encriptação assimétrica. Isto garante que apenas o recetor será capaz de decifrar a chave que permite decifrar a informação enviada, bem como que este será capaz de verificar o ficheiro recorrendo à sua assinatura, podendo ter certezas sobre a sua origem e se foi ou não adulterado.
 
 Assim sendo, pudemos verificar que nem métodos simétricos nem assimétricos são perfeitos na transmissão de informação de forma segura. No entanto, apesar dos seus possíveis problemas, ambos têm importantes vantagens e desta forma um método de encriptação que se baseie num esquema híbrido poderá ser um bom compromisso entre as qualidades e desvantagens de um, e as qualidades e desvantagens de outro. 
 
@@ -300,10 +309,12 @@ Assim sendo, pudemos verificar que nem métodos simétricos nem assimétricos s�
 
 \begin{appendices}
 \section{encipher.py}
-\label{encipher.py}
+\label{App:encipher.py}
 
 \begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{python}
-import os, sys, zipfile
+import os
+import sys
+import zipfile
 from Crypto import Random
 from Crypto.Cipher import AES, PKCS1_OAEP
 from Crypto.Hash import SHA256
@@ -312,7 +323,7 @@ from Crypto.Random import random
 from Crypto.Signature import PKCS1_v1_5
 
 
-# Define Public and Private key names!
+# Define public and private key names for faster usage
 
 # Sender's private key:
 priKey = "A_PrivateKey.pem"
@@ -322,27 +333,32 @@ pubKey = "B_PublicKey.pem"
 # File name to encrypt
 f_name = ""
 
+# Private key password:
+priPass = ""
+
+
 def usage():
-    print "python encipher.py <File_Name>"
+    print "python encipher.py <file_name>"
+    sys.exit(-1)
 
 
-def sigGenerator(priKey_fname, f_name):
+def sigGenerator(priKey_fname, f_name, priPass):
     # Opening and reading file to encrypt
 
     f = open(f_name, "r")
     buffer = f.read()
     f.close()
 
-    # Creating Hash of the file. Using SHA-256 (there was a problem using SHA-512)
+    # Creating hash of the file. Using SHA-256 (SHA-512 rose problems)
 
     h = SHA256.new(buffer)
 
-    # Reading PrivateKey to sign file with
+    # Reading private key to sign file with
 
-    keyPair = RSA.importKey(open(priKey_fname, "r").read())
+    keyPair = RSA.importKey(open(priKey_fname, "r").read(), passphrase=priPass)
     keySigner = PKCS1_v1_5.new(keyPair)
 
-    # Saving Signature to *.sig File
+    # Saving signature to *.sig file
 
     f = open(f_name.split('.')[0] + ".sig", "w")
     f.write(keySigner.sign(h))
@@ -354,12 +370,12 @@ def keyGenerator(pubKey_fname, f_name, iv):
 
     h = SHA256.new(str(random.getrandbits(1024)))
 
-    # Reading PublicKey to encrypt AES key with
+    # Reading public key to encrypt AES key with
 
     keyPair = RSA.importKey(open(pubKey_fname, "r").read())
     keyCipher = PKCS1_OAEP.new(keyPair.publickey())
 
-    # Saving encrypted key to *.key File
+    # Saving encrypted key to *.key file
 
     f = open(f_name.split('.')[0] + ".key", "w")
     f.write(iv + keyCipher.encrypt(h.digest()))
@@ -370,19 +386,18 @@ def keyGenerator(pubKey_fname, f_name, iv):
     return h.digest()
 
 
-def encipher(keyA_fname, keyB_fname, f_name):
-    # Opening file to encrypt in binary mode
+def encipher(keyA_fname, keyB_fname, f_name, priPass):
+    # Opening file to encrypt in binary reading mode
 
     f = open(f_name, "rb")
     buffer = f.read()
     f.close()
 
-    # Generating file's Signature (and saving it)
+    # Generating file's signature (and saving it)
 
-    sigGenerator(keyA_fname, f_name)
+    sigGenerator(keyA_fname, f_name, priPass)
 
-    # Generating initializing vector for AES Encryption (there were problems when using different AES modes)
-    # Needs to be saved in, for example, .key File!!!
+    # Generating initializing vector for AES Encryption
 
     iv = Random.new().read(AES.block_size)
 
@@ -390,7 +405,7 @@ def encipher(keyA_fname, keyB_fname, f_name):
 
     k = keyGenerator(keyB_fname, f_name, iv)
 
-    # Encrypting and saving result to *.bin File. Using CFB mode
+    # Encrypting and saving result to *.bin file. Using CFB mode
 
     keyCipher = AES.new(str(k), AES.MODE_CFB, iv)
     f = open(f_name.split('.')[0] + ".bin", "wb")
@@ -433,7 +448,8 @@ def checkFiles(f_name, pubKey, priKey):
         print "Invalid file to encrypt. Aborting..."
         sys.exit(1)
 
-    # Checking for each of the files to create existence and, in case they exist, if they are writable
+    # Checking for each of the files to create existence and, in case they exist,
+    # if they are writable
 
     else:
         s = f_name.split('.')[0]
@@ -473,7 +489,7 @@ elif len(sys.argv) == 1:
 else:
     f_name = sys.argv[1]
 
-# Gathering keys names
+# Gathering names of keys
 
 if priKey == "":
     print "Sender's private key file name:"
@@ -484,30 +500,39 @@ if pubKey == "":
 
 # Running checks to files
 
-checkFiles(f_name, pubKey, priKey)
+#checkFiles(f_name, pubKey, priKey)
+
+# Reading password if not assigned:
+
+if priPass == "":
+    print "Private key password (ENTER for empty value):"
+    priPass = raw_input(">>> ")
 
 # Ciphering file (and generating all auxiliary files)
 
-encipher(priKey, pubKey, f_name)
+encipher(priKey, pubKey, f_name, priPass)
 
 # Generating output file and clean up
 
-auxFilesZip(f_name.split('.')[0] + ".sig", f_name.split('.')[0] + ".key", f_name.split('.')[0] + ".bin")
+auxFilesZip(f_name.split('.')[0] + ".sig", f_name.split('.')[0] + # Continues on next line
+ + ".key", f_name.split('.')[0] + ".bin")
 \end{minted}
 
 \newpage
 \section{decipher.py}
-\label{decipher.py}
+\label{App:decipher.py}
 
 \begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{python}
-import os, sys, zipfile
+import os
+import sys
+import zipfile
 from Crypto.Cipher import PKCS1_OAEP, AES
 from Crypto.Hash import SHA256
 from Crypto.PublicKey import RSA
 from Crypto.Signature import PKCS1_v1_5
 
 
-# Define Public and Private key names!
+# Define public and private key names for faster usage
 
 # Sender's public key:
 pubKey = "A_PublicKey.pem"
@@ -517,22 +542,27 @@ priKey = "B_PrivateKey.pem"
 # File name to decrypt
 f_name = ""
 
+# Private key password:
+priPass = ""
+
+
 def usage():
-    print "python decipher.py <File_Name>"
+    print "python decipher.py <file_name>"
+    sys.exit(-1)
 
 
-def hashVerification(pubKey_fname, f_name):
+def sigVerification(pubKey_fname, f_name):
     # Generating decrypted file's SHA-256
 
     h = SHA256.new()
     h.update(open(f_name, "r").read())
 
-    # Reading PublicKey to check Signature with
+    # Reading public key to check signature with
 
     keyPair = RSA.importKey(open(pubKey_fname, "r").read())
     keyVerifier = PKCS1_v1_5.new(keyPair.publickey())
 
-    # If Signature is right, prints SHA-256. Otherwise states that the file is not authentic
+    # If signature is right, prints SHA-256. Otherwise states that the file is not authentic
 
     if keyVerifier.verify(h, open(f_name.split('.')[0] + ".sig", "r").read()):
         print "The signature is authentic."
@@ -541,13 +571,13 @@ def hashVerification(pubKey_fname, f_name):
         print "The signature is not authentic."
 
 
-def keyReader(privKey_fname, f_name):
-    # Reading PrivateKey to decipher Symmetric key used
+def keyReader(privKey_fname, f_name, priPass):
+    # Reading private key to decipher symmetric key used
 
-    keyPair = RSA.importKey(open(privKey_fname, "r").read())
+    keyPair = RSA.importKey(open(privKey_fname, "r").read(), passphrase=priPass)
     keyDecipher = PKCS1_OAEP.new(keyPair)
 
-    # Reading iv (initializing vector) used to encrypt and saving Symmetric key used to 'k'
+    # Reading iv and symmetric key used during encryption
 
     f = open(f_name.split('.')[0] + ".key", "r")
     iv = f.read(16)
@@ -556,10 +586,10 @@ def keyReader(privKey_fname, f_name):
     return k, iv
 
 
-def decipher(keyA_fname, keyB_fname, f_name):
-    # Getting Symmetric key used and iv value generated at encryption process
+def decipher(keyA_fname, keyB_fname, f_name, priPass):
+    # Getting symmetric key used and iv value generated at encryption process
 
-    k, iv = keyReader(keyB_fname, f_name)
+    k, iv = keyReader(keyB_fname, f_name, priPass)
 
     # Deciphering the initial information and saving it to file with no extension
 
@@ -571,7 +601,7 @@ def decipher(keyA_fname, keyB_fname, f_name):
 
     # Running a Signature verification
 
-    hashVerification(keyA_fname, f_name.split('.')[0])
+    sigVerification(keyA_fname, f_name.split('.')[0])
 
 
 def auxFilesUnzip(all):
@@ -592,12 +622,28 @@ def cleanUp(sig, key, bin, all):
     os.remove(bin)
     os.remove(all)
 
-def checkFiles(f_name, pubKey, priKey, first_run):
-    # Checking for decrypting file's existence and access
 
-    if first_run and (not os.path.isfile(f_name + ".all") or not os.access(f_name + ".all", os.R_OK)):
-        print "Invalid file to decrypt. Aborting..."
-        sys.exit(1)
+def checkFiles(f_name, pubKey, priKey, first_run):
+    # Checking for decrypting file's existence and access, keys, aux and output files
+
+    if first_run:
+        # Checking for decrypting file's existence and access
+
+        if not os.path.isfile(f_name + ".all") or not os.access(f_name + ".all", os.R_OK):
+            print "Invalid file to decrypt. Aborting..."
+            sys.exit(1)
+
+        # Checking for public key's existence and access
+
+        if not os.path.isfile(pubKey) or not os.access(pubKey, os.R_OK):
+            print "Invalid public key file. Aborting..."
+            sys.exit(6)
+
+        # Checking for private key's existence and access
+
+        if not os.path.isfile(priKey) or not os.access(priKey, os.R_OK):
+            print "Invalid private key file. Aborting..."
+            sys.exit(7)
 
     elif not first_run:
         # Checking if all of the necessary files exist and are accessible
@@ -618,18 +664,6 @@ def checkFiles(f_name, pubKey, priKey, first_run):
             print "Can't create output file. Aborting..."
             sys.exit(5)
 
-    # Checking for public key's existence and access
-
-    if not os.path.isfile(pubKey) or not os.access(pubKey, os.R_OK):
-        print "Invalid public key file. Aborting..."
-        sys.exit(6)
-
-    # Checking for private key's existence and access
-
-    if not os.path.isfile(priKey) or not os.access(priKey, os.R_OK):
-        print "Invalid private key file. Aborting..."
-        sys.exit(7)
-
 
 # Gathering encrypting file name
 
@@ -641,7 +675,7 @@ elif len(sys.argv) == 1:
 else:
     f_name = sys.argv[1]
 
-# Gathering keys names
+# Gathering names of keys
 
 if pubKey == "":
     print "Sender's public key file name:"
@@ -650,12 +684,32 @@ if priKey == "":
     print "Receiver's private key file name:"
     priKey = raw_input(">>> ")
 
-
 f_name = f_name.split('.')[0]
+
+# Checking for *.all file and keys' files
+
 checkFiles(f_name, pubKey, priKey, True)
+
+# Unzipping all files
+
 auxFilesUnzip(f_name)
+
+# Checking for *.sig, *.key, *.bin files
+
 checkFiles(f_name, pubKey, priKey, False)
-decipher(pubKey, priKey, f_name)
+
+# Reading password if not assigned
+
+if priPass == "":
+    print "Private key password (ENTER for empty value):"
+    priPass = raw_input(">>> ")
+
+# Deciphering file
+
+decipher(pubKey, priKey, f_name, priPass)
+
+# Cleaning all files but the deciphered file
+
 cleanUp(f_name + ".sig", f_name + ".key", f_name + ".bin", f_name + ".all")
 \end{minted}
 \end{appendices}

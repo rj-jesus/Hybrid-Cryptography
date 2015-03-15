@@ -304,11 +304,9 @@ Foi-nos possível verificar que ao adotar um esquema híbrido podemos tirar part
 
 Assim sendo, pudemos verificar que nem métodos simétricos nem assimétricos são perfeitos na transmissão de informação de forma segura. No entanto, apesar dos seus possíveis problemas, ambos têm importantes vantagens e desta forma um método de encriptação que se baseie num esquema híbrido poderá ser um bom compromisso entre as qualidades e desvantagens de um, e as qualidades e desvantagens de outro. 
 
-\newpage
-%\appendix
+\chapter*{Anexos}
 
-\begin{appendices}
-\section{encipher.py}
+\section*{encipher.py}
 \label{App:encipher.py}
 
 \begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{python}
@@ -519,7 +517,7 @@ auxFilesZip(f_name.split('.')[0] + ".sig", f_name.split('.')[0] + # Continues on
 \end{minted}
 
 \newpage
-\section{decipher.py}
+\section*{decipher.py}
 \label{App:decipher.py}
 
 \begin{minted}[frame=lines,fontsize=\footnotesize,linenos]{python}
@@ -712,7 +710,6 @@ decipher(pubKey, priKey, f_name, priPass)
 
 cleanUp(f_name + ".sig", f_name + ".key", f_name + ".bin", f_name + ".all")
 \end{minted}
-\end{appendices}
 
 \maketitle
 \nocite{*}

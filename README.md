@@ -1,9 +1,9 @@
 <!-- # LabI-Crypto -->
 # Hybrid-Cryptography
 
-Hosting two programs that use an hybrid cryptosystem in encryption and decryption. Assymetric encryption (and decryption) use RSA algorithm and symmetric encryption (and again, decryption) use AES on CFB mode. For more on the subject you can check the PDF on the LaTeX folder (though it's in portuguese).
+Hosting two programs that use an hybrid cryptosystem to encrypt and decrypt. Assymetric encryption (and decryption) uses the RSA algorithm and symmetric encryption (and again, decryption) uses AES on CFB mode. For more on the subject you can check the PDF on the LaTeX folder (though it's in portuguese).
 
-The programs were writen in *Python 2.7* and require PyCrypto in order to properly work. Inside Sender and Receiver folders there are already RSA keys (used in tests) but for safety reasons be sure to generate your own pair.
+The programs were writen in *Python 2.7* and require PyCrypto in order to properly work. Inside *Sender* and *Receiver* folders there are already RSA keys (used in tests) but for safety reasons be sure to generate your own pair.
 
 ### KeysGenerator
 

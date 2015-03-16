@@ -17,7 +17,7 @@ priKey = "B_PrivateKey.pem"
 # File name to decrypt
 f_name = ""
 
-# Private key password:
+# Private key password: (Given keys have no password)
 priPass = ""
 
 

@@ -19,7 +19,7 @@ pubKey = "B_PublicKey.pem"
 # File name to encrypt
 f_name = ""
 
-# Private key password:
+# Private key password: (Given keys have no password)
 priPass = ""
 
 

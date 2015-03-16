@@ -15,7 +15,7 @@ python generateKeys.py
 
 ### Sender
 
-Here you can find the ciphering program. Either edit the code and add for example your private key file name (and path to it), or you will be promped for it at runtime. You can also add the password for your private key but I myself would advise that. Syntax:
+Here you can find the ciphering program. Either edit the code and add for example your private key file name (and path to it), or you will be promped for it at runtime. You can also add the password for your private key but I myself would not advise that. Syntax:
 
 ```
 python encipher.py <file_name>

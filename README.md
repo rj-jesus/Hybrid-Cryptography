@@ -25,7 +25,7 @@ You can ommit the file name, in which case you will be promped for it at runtime
 
 ### Receiver
 
-Here you can find the deciphering program. Again, either edit the code and add your private password file name (and path) or you will be promped for it. The program works in reverse of the ciphering one, so what you can do with that one you should be able to also do with this. Syntax:
+Here you can find the deciphering program. Again, either edit the code and add your private password file name (and path) or you will be promped for it. This program works as the reverse of the ciphering one, so what you can do with the last you should be able to also do with this one. Syntax:
 
 ```
 python decipher.py <file_name>
